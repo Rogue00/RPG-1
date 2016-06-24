@@ -27,6 +27,28 @@ var KeyboardService = (function () {
 				this.keysPressed['space'] = false;
 
   	}.bind(this));
+	
+	window.addEventListener('touchstart' , function(e) {
+		if(e.clientX>document.body.clientWidth/2) {
+			this.keysPressed['right'] = true;
+		} else {
+			this.keysPressed['left'] = true;
+		}
+		if(e.clientY>document.body.clientHeight/2) {
+			this.keysPressed['down'] = true;
+		} else {
+			this.keysPressed['up'] = true;
+		}
+
+	});
+
+	window.addEventListener('touchend' , function(e) {
+		this.keysPressed['right'] = false;
+		this.keysPressed['left'] = false;
+		this.keysPressed['down'] = false;
+		this.keysPressed['up'] = false;		
+	});
+
 	  
 	return this;
 })();
