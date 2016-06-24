@@ -13,7 +13,7 @@ function Brick(width,height,x,y) {
 			x: x,
 			y: y
 		}
-	}
+	} 
 
 	brickTexture.addEventListener('load',function() {
 		this.needsRedraw = true;
