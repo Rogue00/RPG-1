@@ -1,0 +1,26 @@
+<html>
+	<head>
+		<script src="js/CollisionService.js"></script>
+		<script src="js/PositionService.js"></script>
+		<script src="js/KeyboardService.js"></script>
+		<script src="js/PlateContent.js"></script>
+		<script src="js/Streetland.js"></script>
+		<script src="js/Grassland.js"></script>
+		<script src="js/MazeLand.js"></script>
+		<script src="js/Brick.js"></script>
+		<script src="js/Fire.js"></script>
+		<script src="js/Plate.js"></script>
+		<script src="js/MainPane.js"></script>
+		<script src="js/Hero.js"></script>
+		<script src="js/App.js"></script>
+	</head>
+	<body>
+		<canvas id="c"></canvas>
+		<script>
+			var app = new App(document.getElementById('c'));
+			var goto = function(x,y) {
+				app.goto(x,y);
+			}
+		</script>
+	</body>
+</html>
