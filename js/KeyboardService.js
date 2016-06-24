@@ -29,16 +29,22 @@ var KeyboardService = (function () {
   	}.bind(this));
 	
 	window.addEventListener('touchstart' , function(e) {
-		if(e.clientX>document.body.clientWidth/2) {
+		if(e.clientX>document.body.clientWidth-100) {
 			this.keysPressed['right'] = true;
-		} else {
+		}
+		
+		if(e.clientX<100) {
 			this.keysPressed['left'] = true;
 		}
-		if(e.clientY>document.body.clientHeight/2) {
+		
+		if(e.clientY>document.body.clientHeight-100) {
 			this.keysPressed['down'] = true;
-		} else {
+		}
+		
+		if(e.clientY<100) {
 			this.keysPressed['up'] = true;
 		}
+		
 
 	});
 
