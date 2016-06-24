@@ -28,7 +28,7 @@ var KeyboardService = (function () {
 
   	}.bind(this));
 	
-	window.addEventListener('touchstart' , function(e) {
+	document.addEventListener('touchstart' , function(e) {
 		if(e.clientX>document.body.clientWidth-100) {
 			this.keysPressed['right'] = true;
 		}
