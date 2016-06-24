@@ -12,7 +12,7 @@ function Fire(x,y) {
 		return {
 			x: x,
 			y: y
-		}
+		} 
 	}
 	var locked = false;
 	this.handleHit = function(hitObj) {
