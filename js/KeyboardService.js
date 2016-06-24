@@ -27,33 +27,34 @@ var KeyboardService = (function () {
 				this.keysPressed['space'] = false;
 
   	}.bind(this));
+	window.addEventListener('load', function() {
+		document.body.addEventListener('touchstart' , function(e) {
+			if(e.changedTouches[0].clientX>document.body.clientWidth-100) {
+				this.keysPressed['right'] = true;
+			}
+			
+			if(e.changedTouches[0].clientX<100) {
+				this.keysPressed['left'] = true;
+			}
+			
+			if(e.changedTouches[0].clientY>document.body.clientHeight-100) {
+				this.keysPressed['down'] = true;
+			}
+			
+			if(e.changedTouches[0].clientY<100) {
+				this.keysPressed['up'] = true;
+			}
+			
 	
-	document.addEventListener('touchstart' , function(e) {
-		if(e.clientX>document.body.clientWidth-100) {
-			this.keysPressed['right'] = true;
-		}
-		
-		if(e.clientX<100) {
-			this.keysPressed['left'] = true;
-		}
-		
-		if(e.clientY>document.body.clientHeight-100) {
-			this.keysPressed['down'] = true;
-		}
-		
-		if(e.clientY<100) {
-			this.keysPressed['up'] = true;
-		}
-		
+		}.bind(this));
 
-	});
-
-	window.addEventListener('touchend' , function(e) {
-		this.keysPressed['right'] = false;
-		this.keysPressed['left'] = false;
-		this.keysPressed['down'] = false;
-		this.keysPressed['up'] = false;		
-	});
+		document.body.addEventListener('touchend' , function(e) {
+			this.keysPressed['right'] = false;
+			this.keysPressed['left'] = false;
+			this.keysPressed['down'] = false;
+			this.keysPressed['up'] = false;		
+		}.bind(this));
+	}.bind(this));
 
 	  
 	return this;
