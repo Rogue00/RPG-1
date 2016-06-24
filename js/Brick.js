@@ -8,6 +8,10 @@ brickTexture.src = "img/brick.png";
 function Brick(width,height,x,y) {
 	PlateContent.call(this,width,height);
 	
+	this.loop = function() {
+		
+	}
+	
 	this.getPosition = function() {
 		return {
 			x: x,

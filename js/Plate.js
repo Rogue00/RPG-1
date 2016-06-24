@@ -20,19 +20,16 @@ function Plate(width, height) {
   }
   
   this.loop = function() {
+    content.loop();
     if(content.needsRedraw) {
       this.needsRedraw = true;
     }
-    content.loop();
   }
   
   this.draw = function() {
-    if(content!=null) {
-      content.draw();
-    }
+    content.draw();
     if(!this.needsRedraw) return;
     this.needsRedraw = false;
-    
     context.clearRect(0,0,canvas.width,canvas.height);
     context.drawImage(content.getCanvas(),0,0);
   }

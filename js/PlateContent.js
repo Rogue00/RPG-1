@@ -17,7 +17,7 @@ function PlateContent(width,height,text) {
 	}
   
   this.loop = function() {
-    if(this.needsRedraw) this.draw();
+    //if(this.needsRedraw) this.draw();
   }
   
   this.draw = function() {

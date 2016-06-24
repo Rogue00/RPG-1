@@ -33,7 +33,7 @@ function App(initCanvas) {
   
   var hero = new Hero();
   //Set Hero start Position
-  PositionService.setPosition(hero,2400,1360);
+  PositionService.setPosition(hero,2400,1160);
   
   var loop = function() {
     window.requestAnimationFrame(loop);
@@ -114,6 +114,8 @@ function App(initCanvas) {
     
     
     context.drawImage(hero.getCanvas(), hero.getPosition().x-mainPane.getPosition().x, hero.getPosition().y-mainPane.getPosition().y);
+    
+    context.drawImage(DialogService.getCanvas(), canvas.width/2-DialogService.canvas.width/2, canvas.height-DialogService.canvas.height-50);
        
   }
   

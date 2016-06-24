@@ -15,9 +15,9 @@ function Fire(x,y) {
 		} 
 	}
 	var locked = false;
+
 	this.handleHit = function(hitObj) {
 		if(KeyboardService.keysPressed.space) {
-			console.log(locked);
 			if(!locked) {
 				locked = true;
 				setTimeout(function(){locked=false},1000);

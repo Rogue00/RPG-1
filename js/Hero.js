@@ -40,9 +40,17 @@ function Hero() {
 		for(var i=0;i<hitRects.length;i++) {
 			var rect = hitRects[i].hitRect;
 			var collidor = hitRects[i].collidor;
+			
+
+			
 			if(collidor.obj.handleHit!=undefined) {
-				collidor.obj.handleHit.call(this);
+				collidor.obj.handleHit();
 			}
+			
+			if(collidor.obj.hits===false) {
+				continue;
+			}
+			
 			var newX = this.getPosition().x;
 			var newY = this.getPosition().y;
 
