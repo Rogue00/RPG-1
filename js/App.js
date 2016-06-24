@@ -7,7 +7,7 @@ function App(initCanvas) {
   var context = canvas.getContext('2d');
   var contentPlates = [];
   
-  var SHIFTSPEED = 2;
+  var SHIFTSPEED = 5;
   
   for(var i=0;i<20;i++) {
     contentPlates[i] = [];
