@@ -3,6 +3,7 @@ function MainPane(width, height, contentPlates) {
   var canvas = document.createElement('canvas');
   var context = canvas.getContext('2d');
   this.needsRedraw = false;
+  this.currentColliderSet = null;
   
   canvas.width = width;
   canvas.height = height;
@@ -26,6 +27,10 @@ function MainPane(width, height, contentPlates) {
   } 
   
   this.getColliderSet = function() {
+    return this.currentColliderSet;
+  }
+  
+  this.generateColliderSet = function() {
     var colliderSet = {
       offset: 0,
       colliders: []
@@ -49,7 +54,7 @@ function MainPane(width, height, contentPlates) {
         } 
       }
     }
-    return colliderSet;
+    this.currentColliderSet = colliderSet;
   }
   
   this.goto = function(x,y) {
@@ -120,6 +125,7 @@ function MainPane(width, height, contentPlates) {
         plates[i][b].setContent(contentPlates[cX-((plates.length/2<<0)-i)][cY-((plates[i].length/2<<0)-b)]);
       } 
     }
+    this.generateColliderSet();
     this.needsRedraw = true;
   }
   
