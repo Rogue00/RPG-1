@@ -9,9 +9,9 @@ function App(initCanvas) {
   
   var SHIFTSPEED = 5;
   
-  for(var i=0;i<20;i++) {
+  for(var i=0;i<50;i++) {
     contentPlates[i] = [];
-    for(var b=0;b<20;b++) {
+    for(var b=0;b<50;b++) {
       var rnd = Math.random();
       if(rnd<0.25) {
         contentPlates[i].push(new Grassland(960,544,"X:"+i+"| Y:"+b));
