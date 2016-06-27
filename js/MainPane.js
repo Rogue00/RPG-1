@@ -42,12 +42,12 @@ function MainPane(width, height, contentPlates) {
           if(plates[i][b].getContent().colliders!=undefined) {
             for(var j=0;j<plates[i][b].getContent().colliders.length;j++) {
               colliderSet.colliders.push({
+                obj: plates[i][b].getContent().colliders[j],
                 size: plates[i][b].getContent().colliders[j].size,
                 position: {
-                  x: plates[i][b].getContent().colliders[j].getPosition().x+((cX-1)*canvas.width/3)+(i*canvas.width/3),
-                  y: plates[i][b].getContent().colliders[j].getPosition().y+((cY-1)*canvas.height/3)+(b*canvas.height/3)
-                },
-                obj: plates[i][b].getContent().colliders[j]
+                  x: plates[i][b].getContent().colliders[j].getPosition().x + ((cX-1)*canvas.width/3) + (i*canvas.width/3),
+                  y: plates[i][b].getContent().colliders[j].getPosition().y + ((cY-1)*canvas.height/3) + (b*canvas.height/3)
+                }
               });
             }
           }
@@ -86,9 +86,9 @@ function MainPane(width, height, contentPlates) {
     var newCX = (x/(canvas.width/3)<<0);
     var newCY = (y/(canvas.height/3)<<0);
     
-    if(newCX!=cX || newCY!=cY) {
-      cX = newCX > 0 && newCX < contentPlates.length-1 ? newCX : newCX<1? 1 : contentPlates.length-2;
-      cY = newCY > 0 && newCY < contentPlates[0].length-1 ? newCY : newCY < 1 ? 1 : contentPlates[0].length-2
+    if((newCX!=cX && newCX>0 && newCX<contentPlates.length-1) || (newCY!=cY && newCY>0 && newCY<contentPlates[0].length-1)) {
+      cX = newCX;
+      cY = newCY;
       this.rearrange();
     }
 
@@ -160,5 +160,6 @@ function MainPane(width, height, contentPlates) {
     }
     
   } 
+  
   this.rearrange();
 }

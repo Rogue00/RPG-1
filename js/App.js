@@ -14,18 +14,18 @@ function App(initCanvas) {
     for(var b=0;b<20;b++) {
       var rnd = Math.random();
       if(rnd<0.25) {
-        contentPlates[i].push(new Grassland(960,544,"X:"+i+"| Y:"+b));
+        contentPlates[i].push(new Grassland(960,544));
       } else if(rnd>0.5) {
-        contentPlates[i].push(new Streetland(960,544,"X:"+i+"| Y:"+b));
+        contentPlates[i].push(new Streetland(960,544));
       } else {
-        contentPlates[i].push(new MazeLand(960,544,"X:"+i+"| Y:"+b));
+        contentPlates[i].push(new MazeLand(960,544));
       }
     }
   }
   
   
   var mainPane = new MainPane(3*canvas.width,3*canvas.height,contentPlates);
-  mainPane.draw();
+  //mainPane.draw();
   
   this.goto = function(x,y) {
     mainPane.goto(x,y);
@@ -37,7 +37,6 @@ function App(initCanvas) {
   
   var loop = function() {
     window.requestAnimationFrame(loop);
-    
     var movement = {
       x:0,
       y:0
@@ -92,29 +91,14 @@ function App(initCanvas) {
 						mainPane.translation.y, 
 						mainPane.size.w - mainPane.translation.x,
 						mainPane.size.h - mainPane.translation.y,
-						0,
-						0,
+						0, 0,
 						mainPane.size.w  - mainPane.translation.x,
 						mainPane.size.h - mainPane.translation.y);
-    
-
-    
-    
-    
     
     hero.loop();
     hero.draw();
 
-    /*
-    context.fillStyle = '#fff';
-    context.font='30px Arial';
-    context.fillText(hero.getPosition(hero).x+"|"+hero.getPosition(hero).y,50,90);
-    */
-    
-    
-    
     context.drawImage(hero.getCanvas(), hero.getPosition().x-mainPane.getPosition().x, hero.getPosition().y-mainPane.getPosition().y);
-    
     context.drawImage(DialogService.getCanvas(), canvas.width/2-DialogService.canvas.width/2, canvas.height-DialogService.canvas.height-50);
        
   }

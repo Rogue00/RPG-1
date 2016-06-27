@@ -1,10 +1,6 @@
 Food.prototype = Object.create(PlateContent.prototype);
 Food.prototype.constructor = PlateContent;
 	
-var foodTexture = new Image();
-foodTexture.src = "img/food.png";
-
-
 function Food(x,y) {
 	PlateContent.call(this,24,24);
 	
@@ -29,6 +25,8 @@ function Food(x,y) {
 	this.loop = function() {
 	}
 
+	var foodTexture = new Image();
+	foodTexture.src = "img/food.png";
 	foodTexture.addEventListener('load',function() {
 		this.needsRedraw = true;
 	}.bind(this));

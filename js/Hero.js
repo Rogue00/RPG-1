@@ -1,6 +1,3 @@
-var heroSprite = new Image();
-heroSprite.src = "img/hero.png";
-
 function Hero() {
 	this.canvas = document.createElement('canvas');
   	this.canvas.width = 30;
@@ -15,6 +12,9 @@ function Hero() {
   	this.needsRedraw = false;
 	  
 	var spritePosition = {x:0,y:0};
+
+	var heroSprite = new Image();
+	heroSprite.src = "img/hero.png";
 	  
 	heroSprite.addEventListener('load',function() {
 		this.needsRedraw = true;
@@ -83,7 +83,7 @@ function Hero() {
 				spritePosition.x+=1;
 				this.needsRedraw = true;
 			}
-	}.bind(this),300);
+	}.bind(this),100);
 	
 	this.loop = function() {
 		if(KeyboardService.keysPressed.down) {
@@ -109,10 +109,7 @@ function Hero() {
 		this.needsRedraw = false;
 		
 		this.context.clearRect(0,0,this.canvas.width,this.canvas.height);
-		/*
-		this.context.fillStyle = "red";
-		this.context.fillRect(0,0,this.canvas.width,this.canvas.height);
-		*/
+
 		this.context.drawImage(
 						heroSprite,
 						spritePosition.x*this.canvas.width,

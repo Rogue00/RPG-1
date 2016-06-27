@@ -5,8 +5,8 @@ var streetTexture = new Image();
 streetTexture.src = "img/street.jpg";
 
 
-function Streetland(width,height,text) {
-	PlateContent.call(this,width,height,text);
+function Streetland(width,height) {
+	PlateContent.call(this,width,height);
 	
 	streetTexture.addEventListener('load',function() {
 		this.needsRedraw = true;

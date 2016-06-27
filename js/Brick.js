@@ -1,8 +1,7 @@
 Brick.prototype = Object.create(PlateContent.prototype);
 Brick.prototype.constructor = PlateContent;
 	
-var brickTexture = new Image();
-brickTexture.src = "img/brick.png";
+
 
 
 function Brick(width,height,x,y) {
@@ -19,6 +18,8 @@ function Brick(width,height,x,y) {
 		}
 	} 
 
+	var brickTexture = new Image();
+	brickTexture.src = "img/brick.png";
 	brickTexture.addEventListener('load',function() {
 		this.needsRedraw = true;
 		this.draw();

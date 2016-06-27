@@ -26,13 +26,12 @@ var DialogService = (function() {
 	this.draw = function() {
 		if(!this.needsRedraw) return;
     	this.needsRedraw = false;
-		console.log("H");
     	this.context.clearRect(0,0,this.canvas.width,this.canvas.height);
 		if(messages.length) {
 			this.context.fillStyle = "#000";
 			this.context.fillRect(0,0,this.canvas.width,this.canvas.height);
 			this.context.fillStyle = "#fff";
-			this.context.font = '30pt Calibri';
+			this.context.font = '30pt Verdana';
 			this.context.textAlign = 'center';
 			this.context.textBaseline = 'middle';
 			this.context.fillText(messages[0],this.canvas.width/2,this.canvas.height/2);

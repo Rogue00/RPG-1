@@ -1,8 +1,6 @@
 Fire.prototype = Object.create(PlateContent.prototype);
 Fire.prototype.constructor = PlateContent;
-	
-var fireTexture = new Image();
-fireTexture.src = "img/fire.png";
+
 
 
 function Fire(x,y) {
@@ -20,17 +18,23 @@ function Fire(x,y) {
 		if(KeyboardService.keysPressed.space) {
 			if(!locked) {
 				locked = true;
+				DialogService.addMessage("I am hungry...");
 				setTimeout(function(){locked=false},1000);
 			}
 		}
 	}
+	
+	this.loop = function() {
+	}
 
+	var fireTexture = new Image();
+	fireTexture.src = "img/fire.png";
 	fireTexture.addEventListener('load',function() {
 		this.needsRedraw = true;
-		this.draw();
 	}.bind(this));
 	
 	this.draw = function() {
+		console.log("FIRE");
 		if(!this.needsRedraw) return;
 		this.needsRedraw = false;
 		this.context.fillStyle = this.context.createPattern(fireTexture,"repeat");
