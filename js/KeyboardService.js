@@ -1,4 +1,4 @@
-var KeyboardService = (function () {
+var KeyboardService = new function () {
 	this.keysPressed = [];
 	
 	window.addEventListener('keydown' , function(e) {
@@ -57,5 +57,4 @@ var KeyboardService = (function () {
 	}.bind(this));
 
 	  
-	return this;
-})();
+};

@@ -1,7 +1,7 @@
-var PositionService = (function () {
+var PositionService = new function () {
 	this.positions = [];
 
-	var findPosition = function(elm) {
+	this.findPosition = function(elm) {
 		for(var i=0;i<this.positions.length;i++) {
 			if(this.positions[i][0]===elm) {
 				return this.positions[i];
@@ -11,7 +11,7 @@ var PositionService = (function () {
 	}
 
 	this.setPosition = function(obj,x,y) {
-		var elm = findPosition(obj);
+		var elm = this.findPosition(obj);
 		if(elm==null) {
 			this.positions.push([obj,x,y]);
 		} else {
@@ -21,7 +21,7 @@ var PositionService = (function () {
 	}
 	
 	this.getPosition = function(obj) {
-		var elm = findPosition(obj);
+		var elm = this.findPosition(obj);
 		if(elm==null) {
 			return null;
 		} else {
@@ -29,5 +29,4 @@ var PositionService = (function () {
 		}
 	}
 	
-	return this;
-})();
+};

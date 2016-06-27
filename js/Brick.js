@@ -31,4 +31,5 @@ function Brick(width,height,x,y) {
 		this.context.fillStyle = this.context.createPattern(brickTexture,"repeat");
 		this.context.fillRect(0,0,this.canvas.width,this.canvas.height);
 	}
+	
 }

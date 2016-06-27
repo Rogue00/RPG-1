@@ -11,11 +11,11 @@ function Grassland(width,height,text) {
 	}.bind(this));
 	
 	this.colliders = [
-		new Brick(this.canvas.width/2,32,0,0),
-		new Brick(this.canvas.width/2,32,this.canvas.width/2+32,0),
-		new Brick(32,this.canvas.height/2,0,0),
-		new Brick(32,this.canvas.height/2,0,this.canvas.height/2+32),
-		new Fire(this.canvas.height/2-32,this.canvas.height/2-32)
+		new Brick(width/2,32,0,0),
+		new Brick(width/2,32,width/2+32,0),
+		new Brick(32,height/2,0,0),
+		new Brick(32,height/2,0,height/2+32),
+		new Fire(height/2-32,height/2-32)
 	];
 	
 	this.draw = function() {

@@ -83,7 +83,7 @@ function Hero() {
 				spritePosition.x+=1;
 				this.needsRedraw = true;
 			}
-	}.bind(this),100);
+	}.bind(this),200);
 	
 	this.loop = function() {
 		if(KeyboardService.keysPressed.down) {

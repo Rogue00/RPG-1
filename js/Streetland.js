@@ -15,15 +15,15 @@ function Streetland(width,height) {
 	this.needsRedraw = false;
 	
 	this.colliders = [
-		new Brick(this.canvas.width/2,32,0,0),
-		new Brick(this.canvas.width/2,32,this.canvas.width/2+32,0),
-		new Brick(32,this.canvas.height/2,0,0),
-		new Brick(32,this.canvas.height/2,0,this.canvas.height/2+32),
+		new Brick(width/2,32,0,0),
+		new Brick(width/2,32,width/2+32,0),
+		new Brick(32,height/2,0,0),
+		new Brick(32,height/2,0,height/2+32),
 		new Brick(100,100,200,100),
 		new Brick(100,100,700,100),
 		new Brick(100,100,200,400),
 		new Brick(100,100,700,400),
-		new Food(this.canvas.width/2,this.canvas.height/2)
+		new Food(width/2,height/2)
 	];
 	
 	this.loop = function() {

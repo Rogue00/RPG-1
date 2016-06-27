@@ -14,10 +14,10 @@ function MazeLand(width,height,text) {
 	}.bind(this));
 	
 	this.colliders = [
-		new Brick(this.canvas.width/2,32,0,0),
-		new Brick(this.canvas.width/2,32,this.canvas.width/2+32,0),
-		new Brick(32,this.canvas.height/2,0,0),
-		new Brick(32,this.canvas.height/2,0,this.canvas.height/2+32),
+		new Brick(width/2,32,0,0),
+		new Brick(width/2,32,width/2+32,0),
+		new Brick(32,height/2,0,0),
+		new Brick(32,height/2,0,height/2+32),
 	];
 	
 	for(var i=2;i<30;i++) {
@@ -30,6 +30,9 @@ function MazeLand(width,height,text) {
 	
 	
 	this.draw = function() {
+		for(var i=0;i<this.colliders.length;i++) {
+			this.colliders[i].draw();
+		}
 		if(!this.needsRedraw) return;
 		this.needsRedraw = false;
 		

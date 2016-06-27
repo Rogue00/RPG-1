@@ -1,4 +1,4 @@
-var CollisionService = (function() {
+var CollisionService = new function() {
 
 	this.hitTest = function(obj,collisionSet,movement) {
 		var hits = [];
@@ -35,10 +35,7 @@ var CollisionService = (function() {
 		return [];
 	}
 
-
-	
-	return this;
-})();
+};
 
 
 

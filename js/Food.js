@@ -18,7 +18,9 @@ function Food(x,y) {
 		if(!collected) {
 			collected = true;
 			this.needsRedraw = true;
-			DialogService.addMessage("YOU FOUND SOME MEAT. :)");
+			InventoryService.addItem("food",1);
+			DialogService.addMessage("I FOUND SOME MEAT.");
+			
 		}
 	}
 	
@@ -41,4 +43,5 @@ function Food(x,y) {
 			this.context.fillRect(0,0,this.canvas.width,this.canvas.height);
 		}
 	}
+	
 }

@@ -18,7 +18,12 @@ function Fire(x,y) {
 		if(KeyboardService.keysPressed.space) {
 			if(!locked) {
 				locked = true;
-				DialogService.addMessage("I am hungry...");
+				if(InventoryService.getQty('food')>0) {
+					InventoryService.removeItem('food',1);
+					DialogService.addMessage("That was tasty :)");
+				} else {
+					DialogService.addMessage("I am hungry...");
+				}
 				setTimeout(function(){locked=false},1000);
 			}
 		}
@@ -34,10 +39,10 @@ function Fire(x,y) {
 	}.bind(this));
 	
 	this.draw = function() {
-		console.log("FIRE");
 		if(!this.needsRedraw) return;
 		this.needsRedraw = false;
 		this.context.fillStyle = this.context.createPattern(fireTexture,"repeat");
 		this.context.fillRect(0,0,this.canvas.width,this.canvas.height);
 	}
+	
 }

@@ -25,7 +25,6 @@ function App(initCanvas) {
   
   
   var mainPane = new MainPane(3*canvas.width,3*canvas.height,contentPlates);
-  //mainPane.draw();
   
   this.goto = function(x,y) {
     mainPane.goto(x,y);
@@ -100,6 +99,9 @@ function App(initCanvas) {
 
     context.drawImage(hero.getCanvas(), hero.getPosition().x-mainPane.getPosition().x, hero.getPosition().y-mainPane.getPosition().y);
     context.drawImage(DialogService.getCanvas(), canvas.width/2-DialogService.canvas.width/2, canvas.height-DialogService.canvas.height-50);
+    
+    InventoryService.draw();
+    context.drawImage(InventoryService.canvas, canvas.width-InventoryService.canvas.width-10,canvas.height/2-InventoryService.canvas.height/2);
        
   }
   

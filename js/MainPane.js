@@ -87,8 +87,8 @@ function MainPane(width, height, contentPlates) {
     var newCY = (y/(canvas.height/3)<<0);
     
     if((newCX!=cX && newCX>0 && newCX<contentPlates.length-1) || (newCY!=cY && newCY>0 && newCY<contentPlates[0].length-1)) {
-      cX = newCX;
-      cY = newCY;
+      cX = newCX > 0 && newCX < contentPlates.length-1 ? newCX : newCX<1? 1 : contentPlates.length-2;
+      cY = newCY > 0 && newCY < contentPlates[0].length-1 ? newCY : newCY < 1 ? 1 : contentPlates[0].length-2
       this.rearrange();
     }
 

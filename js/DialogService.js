@@ -1,4 +1,4 @@
-var DialogService = (function() {
+var DialogService = new function() {
 	this.canvas = document.createElement('canvas');
 	this.context = this.canvas.getContext('2d');
 	this.canvas.width = 500;
@@ -39,6 +39,4 @@ var DialogService = (function() {
 	}
 	
 	this.draw();
-	
-	return this;
-})();
+};
