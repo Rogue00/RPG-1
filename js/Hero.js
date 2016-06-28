@@ -77,12 +77,16 @@ function Hero() {
 		}
 	}
 	
+	this.shiftHeroAnimation = function() {
+		if(spritePosition.x>1) spritePosition.x=-1;
+		spritePosition.x+=1;
+		this.needsRedraw = true;
+	}
+	
 	setInterval(function() {
-			if(KeyboardService.keysPressed.down||KeyboardService.keysPressed.up||KeyboardService.keysPressed.left||KeyboardService.keysPressed.right) {
-				if(spritePosition.x>1) spritePosition.x=-1;
-				spritePosition.x+=1;
-				this.needsRedraw = true;
-			}
+		if(KeyboardService.keysPressed.down||KeyboardService.keysPressed.up||KeyboardService.keysPressed.left||KeyboardService.keysPressed.right) {
+			this.shiftHeroAnimation();
+		}		
 	}.bind(this),200);
 	
 	this.loop = function() {
@@ -122,5 +126,9 @@ function Hero() {
 						this.canvas.height
 					);
 	}
+	
+	window.addEventListener('KeyboardServiceKeyUp', function() {
+		this.shiftHeroAnimation();
+	}.bind(this));
 	
 }

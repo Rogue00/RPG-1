@@ -15,8 +15,18 @@ function Grassland(width,height,text) {
 		new Brick(width/2,32,width/2+32,0),
 		new Brick(32,height/2,0,0),
 		new Brick(32,height/2,0,height/2+32),
-		new Fire(height/2-32,height/2-32)
+		new Fire(height/2-32,height/2-32),
+		new Coin(width/2,height/2)
 	];
+	
+	this.loop = function() {
+		for(var i=0;i<this.colliders.length;i++) {
+			if(this.colliders[i].needsRedraw) {
+				this.needsRedraw = true;
+			}
+			this.colliders[i].loop();
+		}
+	}
 	
 	this.draw = function() {
 		for(var i=0;i<this.colliders.length;i++) {

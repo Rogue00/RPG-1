@@ -56,5 +56,16 @@ var KeyboardService = new function () {
 		}.bind(this));
 	}.bind(this));
 
+	var keyUpEvent = new Event('KeyboardServiceKeyUp');
+	window.addEventListener('keyup', function (e) {
+		window.dispatchEvent(keyUpEvent);		
+	}, false);
+	
+	var keyDownEvent = new Event('KeyboardServiceKeyDown');
+	window.addEventListener('keydown', function (e) {
+		window.dispatchEvent(keyDownEvent);		
+	}, false);
+
+
 	  
 };

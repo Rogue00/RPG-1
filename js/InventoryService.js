@@ -2,7 +2,7 @@ var InventoryService = new function () {
 	this.canvas = document.createElement('canvas');
 	this.context = this.canvas.getContext('2d');
 	this.canvas.width = 40;
-	this.canvas.height = 300;
+	this.canvas.height = 10*(40+1);
 	this.needsRedraw = true;	
 	this.items = {};
 	
@@ -44,22 +44,22 @@ var InventoryService = new function () {
     	this.needsRedraw = false;
     	this.context.clearRect(0,0,this.canvas.width,this.canvas.height);
 		this.context.fillStyle = "#cdcdcd";
-		this.context.fillRect(0,0,this.canvas.width,this.canvas.height);
-		
+		for(var i=0;i<10;i++) {
+			this.context.fillRect(0,i*(40+1),this.canvas.width,40);
+		}
 		var cnt = 0;
 		for(var item in this.items) {
 			var img = new Image();
 			img.src = 'img/'+item +".png";
-			img.addEventListener('load', function(cnt,item) {
-				this.context.drawImage(img,0,cnt*40);
+			img.addEventListener('load', function(cnt,item,img) {
+				this.context.drawImage(img,8,cnt*(40+1)+8);
 				this.context.fillStyle="black";
 				this.context.font = 'bold 15px Arial';
-				this.context.textAlign = 'center';
+				this.context.textAlign = 'right';
 				this.context.lineWidth = 1;
-				this.context.textBaseline = 'middle';
-				console.log(this.items[item]);
-				this.context.fillText(this.items[item],30,cnt*40+20);
-			}.bind(this,cnt,item));		
+				this.context.textBaseline = 'bottom';
+				this.context.fillText(this.items[item],35,(cnt+1)*(40+1)-5);
+			}.bind(this,cnt,item,img));		
 			cnt++;
 		}
 	}

@@ -12,8 +12,6 @@ function Streetland(width,height) {
 		this.needsRedraw = true;
 	}.bind(this));
 	
-	this.needsRedraw = false;
-	
 	this.colliders = [
 		new Brick(width/2,32,0,0),
 		new Brick(width/2,32,width/2+32,0),
@@ -41,6 +39,7 @@ function Streetland(width,height) {
 		}
 		if(!this.needsRedraw) return;
 		this.needsRedraw = false;
+		
 		this.context.fillStyle = this.context.createPattern(streetTexture,"repeat");
 		this.context.fillRect(0,0,this.canvas.width,this.canvas.height);
 		
