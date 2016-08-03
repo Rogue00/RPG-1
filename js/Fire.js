@@ -6,6 +6,8 @@ Fire.prototype.constructor = PlateContent;
 function Fire(x,y) {
 	PlateContent.call(this,64,64);
 	
+	var spritePosition = {x:0,y:0};
+	
 	this.getPosition = function() {
 		return {
 			x: x,
@@ -41,8 +43,34 @@ function Fire(x,y) {
 	this.draw = function() {
 		if(!this.needsRedraw) return;
 		this.needsRedraw = false;
-		this.context.fillStyle = this.context.createPattern(fireTexture,"repeat");
-		this.context.fillRect(0,0,this.canvas.width,this.canvas.height);
+		
+		this.context.clearRect(0,0,this.canvas.width,this.canvas.height);
+		//this.context.fillStyle = this.context.createPattern(fireTexture,"repeat");
+		//this.context.fillRect(0,0,this.canvas.width,this.canvas.height);
+		this.context.drawImage(
+						fireTexture,
+						spritePosition.x*this.canvas.width,
+						spritePosition.y*this.canvas.height,
+						this.canvas.width,
+						this.canvas.height,
+						0,
+						0,
+						this.canvas.width,
+						this.canvas.height
+					);
 	}
+	
+	this.shiftFireAnimation = function() {
+		if(spritePosition.y==1) {
+			spritePosition.y=0;	
+		} else {
+			spritePosition.y=1;
+		}
+		this.needsRedraw = true;
+	}
+	
+	setInterval(function() {
+			this.shiftFireAnimation();
+	}.bind(this),400);
 	
 }
