@@ -87,7 +87,7 @@ function Hero() {
 		if(KeyboardService.keysPressed.down||KeyboardService.keysPressed.up||KeyboardService.keysPressed.left||KeyboardService.keysPressed.right) {
 			this.shiftHeroAnimation();
 		}		
-	}.bind(this),200);
+	}.bind(this),350);
 	
 	this.loop = function() {
 		if(KeyboardService.keysPressed.down) {
