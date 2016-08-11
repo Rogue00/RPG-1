@@ -1,14 +1,11 @@
 function Plate(width, height) {
-  var canvas = document.createElement('canvas');
-  var context = canvas.getContext('2d');
-  canvas.width = width;
-  canvas.height = height;
+  this.canvas = document.createElement('canvas');
+  var context = this.canvas.getContext('2d');
+  this.canvas.width = width;
+  this.canvas.height = height;
   var content = null;
   this.needsRedraw = false;
-  
-  this.getCanvas = function() {
-    return canvas;
-  }
+ 
   
   this.clearContent = function() {
     try {
@@ -36,6 +33,7 @@ function Plate(width, height) {
         this.needsRedraw = true;
       }
     }
+    return this.needsRedraw;
   }
   
   this.draw = function() {
@@ -44,10 +42,10 @@ function Plate(width, height) {
     }
     if(!this.needsRedraw) return;
     this.needsRedraw = false;
-    context.clearRect(0,0,canvas.width,canvas.height);
+    //context.clearRect(0,0,this.canvas.width,this.canvas.height);
     
-    if(content.getCanvas()!=null)
-      context.drawImage(content.getCanvas(),0,0);
+    if(content.canvas!=null)
+      context.drawImage(content.canvas,0,0);
   }
   
 }

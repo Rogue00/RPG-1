@@ -20,10 +20,6 @@ function Hero() {
 		this.needsRedraw = true;
 	}.bind(this));
 	
-	this.getCanvas = function() {
-		return this.canvas;
-	}
-	
 	this.getPosition = function() {
 		return PositionService.getPosition(this);
 	}
@@ -44,7 +40,7 @@ function Hero() {
 
 			
 			if(collidor.obj.handleHit!=undefined) {
-				collidor.obj.handleHit();
+				collidor.obj.handleHit(this);
 			}
 			
 			if(collidor.obj.hits===false) {
@@ -106,6 +102,7 @@ function Hero() {
 			spritePosition.y = 1;
 			this.needsRedraw = true;
 		}
+		return this.needsRedraw;
 	}
 	
 	this.draw = function() {
@@ -128,7 +125,9 @@ function Hero() {
 	}
 	
 	window.addEventListener('KeyboardServiceKeyUp', function() {
-		this.shiftHeroAnimation();
+		if(KeyboardService.keysPressed.left||KeyboardService.keysPressed.right||KeyboardService.keysPressed.up||KeyboardService.keysPressed.down) {
+			this.shiftHeroAnimation();
+		}
 	}.bind(this));
 	
 }

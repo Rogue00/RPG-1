@@ -1,7 +1,8 @@
 var KeyboardService = new function () {
 	this.keysPressed = [];
 	
-	window.addEventListener('keydown' , function(e) {
+	//Keyboard
+	this.keyDown = function(e) {
 		if(e.keyCode==39)
 			this.keysPressed['right'] = true;
 		if(e.keyCode==37)
@@ -10,11 +11,36 @@ var KeyboardService = new function () {
 			this.keysPressed['down'] = true;
 		if(e.keyCode==38)
 			this.keysPressed['up'] = true;
+
+
+		if(e.keyCode==68)
+			this.keysPressed['right'] = true;
+		if(e.keyCode==65)
+			this.keysPressed['left'] = true;
+		if(e.keyCode==83)
+			this.keysPressed['down'] = true;
+		if(e.keyCode==87)
+			this.keysPressed['up'] = true;
+
+			
+			
 		if(e.keyCode==32)
 			this.keysPressed['space'] = true;
-  	}.bind(this));
+		
+		if(e.keyCode==49)
+			this.keysPressed['n1'] = true;
+		if(e.keyCode==50)
+			this.keysPressed['n2'] = true;
+		if(e.keyCode==51)
+			this.keysPressed['n3'] = true;
+		if(e.keyCode==52)
+			this.keysPressed['n4'] = true;		
+		if(e.keyCode==53)
+			this.keysPressed['n5'] = true;				
+			
+  	};
 	  
-  	window.addEventListener('keyup' , function(e) {
+  	this.keyUp = function(e) {
 			if(e.keyCode==39)
 				this.keysPressed['right'] = false;
 			if(e.keyCode==37)
@@ -23,10 +49,35 @@ var KeyboardService = new function () {
 				this.keysPressed['down'] = false;
 			if(e.keyCode==38)
 				this.keysPressed['up'] = false;
+
+			if(e.keyCode==68)
+				this.keysPressed['right'] = false;
+			if(e.keyCode==65)
+				this.keysPressed['left'] = false;
+			if(e.keyCode==83)
+				this.keysPressed['down'] = false;
+			if(e.keyCode==87)
+				this.keysPressed['up'] = false;
+
+
 			if(e.keyCode==32)
 				this.keysPressed['space'] = false;
 
-  	}.bind(this));
+
+			if(e.keyCode==49)
+				this.keysPressed['n1'] = false;
+			if(e.keyCode==50)
+				this.keysPressed['n2'] = false;
+			if(e.keyCode==51)
+				this.keysPressed['n3'] = false;
+			if(e.keyCode==52)
+				this.keysPressed['n4'] = false;		
+			if(e.keyCode==53)
+				this.keysPressed['n5'] = false;
+
+  	};
+	  
+	//Touch  
 	window.addEventListener('load', function() {
 		document.body.addEventListener('touchstart' , function(e) {
 			if(e.changedTouches[0].clientX>document.body.clientWidth-100) {
@@ -56,15 +107,19 @@ var KeyboardService = new function () {
 		}.bind(this));
 	}.bind(this));
 
+
+	//Create some events
 	var keyUpEvent = new Event('KeyboardServiceKeyUp');
 	window.addEventListener('keyup', function (e) {
-		window.dispatchEvent(keyUpEvent);		
-	}, false);
+		window.dispatchEvent(keyUpEvent);
+		this.keyUp(e);
+	}.bind(this), false);
 	
 	var keyDownEvent = new Event('KeyboardServiceKeyDown');
 	window.addEventListener('keydown', function (e) {
-		window.dispatchEvent(keyDownEvent);		
-	}, false);
+		window.dispatchEvent(keyDownEvent);
+		this.keyDown(e);
+	}.bind(this), false);
 
 
 	  

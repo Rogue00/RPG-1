@@ -1,8 +1,8 @@
 function App(initCanvas) {
   var canvas = initCanvas;
   canvas.style.backgroundColor = '#000';
-  canvas.width = "960";
-  canvas.height = "544";
+  canvas.width = AppConfig.appWidth;
+  canvas.height = AppConfig.appHeight;
   
   var context = canvas.getContext('2d');
   var contentPlates = [];
@@ -14,32 +14,29 @@ function App(initCanvas) {
     for(var b=0;b<20;b++) {
       var rnd = Math.random();
       if(rnd<0.25) {
-        contentPlates[i].push(new Grassland(960,544));
+        contentPlates[i].push(new Grassland(AppConfig.appWidth,AppConfig.appHeight));
       } else if(rnd>0.5) {
-        contentPlates[i].push(new Streetland(960,544));
+        contentPlates[i].push(new Streetland(AppConfig.appWidth,AppConfig.appHeight));
       } else {
-        contentPlates[i].push(new MazeLand(960,544));
+        contentPlates[i].push(new MazeLand(AppConfig.appWidth,AppConfig.appHeight));
       }
     }
   }
   
-  
   var mainPane = new MainPane(3*canvas.width,3*canvas.height,contentPlates);
-  
-  this.goto = function(x,y) {
-    mainPane.goto(x,y);
-  }
-  
+
   var hero = new Hero();
   //Set Hero start Position
   PositionService.setPosition(hero,2400,1160);
   
   var loop = function() {
     window.requestAnimationFrame(loop);
+    
     var movement = {
       x:0,
       y:0
     };
+    
     if(KeyboardService.keysPressed.right) {
       movement.x += SHIFTSPEED;      
     }
@@ -56,6 +53,7 @@ function App(initCanvas) {
       movement.y += SHIFTSPEED;
     }
     
+    // Check if hero is on the edges
     if(hero.getPosition().x+movement.x<0) {
       movement.x = -hero.getPosition().x;
     }
@@ -74,18 +72,21 @@ function App(initCanvas) {
       movement.y = (contentPlates.length)*canvas.height - hero.getPosition().y - hero.size.h;
     }
     
+    // Hittest
     var colliderSet = mainPane.getColliderSet();
     var hitRects = CollisionService.hitTest(hero,colliderSet,movement);
     hero.handleHit(hitRects,movement);
     
     hero.move(movement.x,movement.y);
+    
+    //Center mainPane on hero position
     mainPane.center(hero.getPosition().x,hero.getPosition().y);
     
-    
-    mainPane.loop();
-    mainPane.draw();
-    
-    context.drawImage(mainPane.getCanvas(),
+    //Tick mainPane and draw
+    if(mainPane.loop()) {
+      mainPane.draw();
+    }
+    context.drawImage(mainPane.canvas,
 						mainPane.translation.x,
 						mainPane.translation.y, 
 						mainPane.size.w - mainPane.translation.x,
@@ -94,18 +95,33 @@ function App(initCanvas) {
 						mainPane.size.w  - mainPane.translation.x,
 						mainPane.size.h - mainPane.translation.y);
     
-    hero.loop();
-    hero.draw();
-
-    context.drawImage(hero.getCanvas(), hero.getPosition().x-mainPane.getPosition().x, hero.getPosition().y-mainPane.getPosition().y);
-    context.drawImage(DialogService.getCanvas(), canvas.width/2-DialogService.canvas.width/2, canvas.height-DialogService.canvas.height-50);
+    //Tick hero and draw
+    if(hero.loop()) {
+      hero.draw();
+    }
+    context.drawImage(hero.canvas, hero.getPosition().x-mainPane.getPosition().x, hero.getPosition().y-mainPane.getPosition().y);
     
-    InventoryService.draw();
+    
+    
+    //Draw inventory
+    if(InventoryService.loop()) {
+      InventoryService.draw();
+    }
     context.drawImage(InventoryService.canvas, canvas.width-InventoryService.canvas.width-10,canvas.height/2-InventoryService.canvas.height/2);
        
+       
+    //Draw dialogs
+    context.drawImage(DialogService.canvas, canvas.width/2-DialogService.canvas.width/2, canvas.height-DialogService.canvas.height);
+    
+    TweenService.loop();
+    mainPane.generateColliderSet();
   }
   
-
+  
+  window.setTimeout(function() {
+    DialogService.addMessage(["My name's Grimwald Gudmund,", "and I want to be a Viking!" /*,"Look behind you... a three headed dragon!" */], 5000,"#fff","#000")
+  }
+  ,4000);
   
   loop();
   

@@ -1,42 +1,70 @@
 var InventoryService = new function () {
+	//TODO: export the drawing
+	
 	this.canvas = document.createElement('canvas');
 	this.context = this.canvas.getContext('2d');
 	this.canvas.width = 40;
-	this.canvas.height = 10*(40+6);
+	this.canvas.height = 5*(40+6);
 	this.needsRedraw = false;	
-	this.items = {};
+	this.items = [];
+	this.selectedItem = 0;
 	
 	this.addItem = function(item,qty) {
-		if(this.items[item]) {
-			this.items[item]+=qty;
-		} else {
-			this.items[item]=qty;
+		
+		for(var i=0;i<this.items.length;i++) {
+			var currentItem = this.items[i];
+			if(currentItem.name==item) {
+				currentItem.qty+=qty;
+				this.needsRedraw = true;
+				return
+			}
 		}
+		if(this.items.length<5) {
+			this.items.push({name:item,qty:qty});
+		}
+		
 		this.needsRedraw = true;
 	}
 	
-	this.getCanvas = function() {
-		return this.canvas;
-	}
 	
 	this.getQty = function(item) {
-		if(this.items[item]) {
-			return this.items[item];
-		} else {
-			return 0;
+		for(var i=0;i<this.items.length;i++) {
+			var currentItem = this.items[i];
+			if(currentItem.name==item) {
+				return currentItem.qty;
+			}
 		}
+		return null;
+	}
+	
+	this.getSelectedItem = function() {
+		return this.items[this.selectedItem];
 	}
 	
 	this.removeItem = function(item,qty) {
-		if(this.items[item]) {
-			this.items[item]-=qty;
-			if(this.items[item]<=0) {
-				delete this.items[item];
+		for(var i=0;i<this.items.length;i++) {
+			var currentItem = this.items[i];
+			if(currentItem.name==item) {
+				if(currentItem.qty>=qty)
+					currentItem.qty-=qty;
 			}
-		} else {
-			return false;
 		}
+		this.checkEmpty();
 		this.needsRedraw = true;
+	}
+	
+	this.checkEmpty = function() {
+		for(var i=0;i<this.items.length;i++) {
+			var item = this.items[i];
+			if(item.qty==0) {
+				this.items.splice(i,1);
+			}
+			
+		}
+	}
+	
+	this.loop = function() {
+		return this.needsRedraw;
 	}
 	
 	var woodTexture = new Image();
@@ -50,20 +78,27 @@ var InventoryService = new function () {
     	this.needsRedraw = false;
     	this.context.clearRect(0,0,this.canvas.width,this.canvas.height);
 		this.context.fillStyle = "#6E4803";
-		this.context.strokeStyle = "#fff";
-		this.context.lineWidth = 1;
+		this.context.lineWidth = 2;
 		
-		for(var i=0;i<10;i++) {
+		for(var i=0;i<5;i++) {
 			this.context.fillStyle = this.context.createPattern(woodTexture,"repeat");
+			
+			if(this.selectedItem==i) {
+				this.context.strokeStyle = "red";
+			} else {
+				this.context.strokeStyle = "#fff";
+			}
+			
 			this.context.strokeRect(0,i*(40+6),this.canvas.width,40);
 			this.context.fillRect(1,i*(40+6)+1,this.canvas.width-2,40-1);
 			
 		}
 		
 		var cnt = 0;
-		for(var item in this.items) {
+		for(var i=0;i<this.items.length;i++) {
+			var item = this.items[i];
 			var img = new Image();
-			img.src = 'img/'+item +".png";
+			img.src = 'img/'+item.name +".png";
 			img.addEventListener('load', function(cnt,item,img) {
 				this.context.drawImage(img,8,cnt*(40+6)+8);
 				this.context.fillStyle="#fff";
@@ -71,9 +106,18 @@ var InventoryService = new function () {
 				this.context.textAlign = 'right';
 				this.context.lineWidth = 1;
 				this.context.textBaseline = 'bottom';
-				this.context.fillText(this.items[item],35,(cnt+1)*(40+6)-8);
+				this.context.fillText(item.qty,35,(cnt+1)*(40+6)-8);
 			}.bind(this,cnt,item,img));		
 			cnt++;
 		}
 	}
+	
+	window.addEventListener('KeyboardServiceKeyUp', function() {
+		for(var i=0;i<5;i++) {
+			if(KeyboardService.keysPressed['n'+(i+1)]) {
+				this.selectedItem = i;
+				this.needsRedraw=true;
+			}
+		}
+	}.bind(this));
 };

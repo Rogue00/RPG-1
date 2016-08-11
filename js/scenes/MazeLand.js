@@ -13,17 +13,18 @@ function MazeLand(width,height,text) {
 		this.needsRedraw = true;
 	}.bind(this));
 	
+	var solidConfig = {type:'brick'};
 	this.colliders = [
-		new Brick(width/2,32,0,0),
-		new Brick(width/2,32,width/2+32,0),
-		new Brick(32,height/2,0,0),
-		new Brick(32,height/2,0,height/2+32),
+		new Solid(width/2,32,0,0,solidConfig),
+		new Solid(width/2,32,width/2+32,0,solidConfig),
+		new Solid(32,height/2,0,0,solidConfig),
+		new Solid(32,height/2,0,height/2+32,solidConfig),
 	];
 	
 	for(var i=2;i<30;i++) {
 		for(var b=3;b<17;b++) {
 			if(i%3==0 && b%2!=0) {
-				this.colliders.push(new Brick(32,32,i*32,b*32));
+				this.colliders.push(new Solid(32,32,i*32,b*32,solidConfig));
 			}
 		}	
 	}
@@ -40,7 +41,7 @@ function MazeLand(width,height,text) {
 		this.context.fillRect(0,0,this.canvas.width,this.canvas.height);
 		
 		for(var i=0;i<this.colliders.length;i++) {
-			this.context.drawImage(this.colliders[i].getCanvas(),this.colliders[i].getPosition().x,this.colliders[i].getPosition().y);	
+			this.context.drawImage(this.colliders[i].canvas,this.colliders[i].getPosition().x,this.colliders[i].getPosition().y);	
 		}
 		
 	}
