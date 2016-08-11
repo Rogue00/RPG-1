@@ -115,6 +115,11 @@ function App(initCanvas) {
     
     TweenService.loop();
     mainPane.generateColliderSet();
+    
+    context.fillStyle = '#fff';	
+		context.font = '18px verdana';
+		context.textBaseline = 'top';
+		context.fillText('FPS: '+ FPS.getFPS(), 0,0);
   }
   
   
@@ -122,6 +127,7 @@ function App(initCanvas) {
     DialogService.addMessage(["My name's Grimwald Gudmund,", "and I want to be a Viking!" /*,"Look behind you... a three headed dragon!" */], 5000,"#fff","#000")
   }
   ,4000);
+ 
   
   loop();
   
