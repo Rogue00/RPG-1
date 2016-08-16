@@ -108,7 +108,7 @@ var KeyboardService = new function () {
 	}.bind(this));
 
 
-	//Create some events
+	//Create Events
 	var keyUpEvent = new Event('KeyboardServiceKeyUp');
 	window.addEventListener('keyup', function (e) {
 		window.dispatchEvent(keyUpEvent);

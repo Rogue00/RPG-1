@@ -1,9 +1,8 @@
 var Dialog = new function() {
-	this.canvas = document.createElement('canvas');
-	this.context = this.canvas.getContext('2d');
-	this.canvas.width = AppConfig.appWidth;
-	this.canvas.height = 100;
-	this.needsRedraw = true;
+	this.prototype = Object.create(Drawable.prototype);
+	this.prototype.constructor = Drawable;
+	Drawable.call(this,0,0,AppConfig.appWidth,100);
+	
 	var messages = [];
 	var timeout = null;
 	
@@ -30,10 +29,7 @@ var Dialog = new function() {
 	}
 	
 	
-	this.draw = function() {
-		if(!this.needsRedraw) return;
-    	this.needsRedraw = false;
-    	this.context.clearRect(0,0,this.canvas.width,this.canvas.height);
+	this.userDraw = function() {
 		if(messages.length) {
 			if(messages[0].bgColor!='transparent') {
 				this.context.fillStyle = messages[0].bgColor;

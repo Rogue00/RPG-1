@@ -1,16 +1,11 @@
 Streetland.prototype = Object.create(Drawable.prototype);
 Streetland.prototype.constructor = Drawable;
 	
-var streetTexture = new Image();
-streetTexture.src = "img/street.jpg";
+
 
 
 function Streetland(width,height) {
 	Drawable.call(this,0,0,width,height);
-	
-	streetTexture.addEventListener('load',function() {
-		this.needsRedraw = true;
-	}.bind(this));
 	
 	var solidConfig = {type:'brick'};
 	var collectableConfig = {type:'uncookedMeat',collectMsg:'some uncooked meat...'};
@@ -41,6 +36,13 @@ function Streetland(width,height) {
 		new Collectable(width/2,height/2,collectableConfig),
 		guardian
 	];
+	
+	
+	var streetTexture = new Image();
+	streetTexture.src = "img/street.jpg";
+	streetTexture.addEventListener('load',function() {
+		this.needsRedraw = true;
+	}.bind(this));
 	
 	this.userDraw = function() {
 		this.context.fillStyle = this.context.createPattern(streetTexture,"repeat");

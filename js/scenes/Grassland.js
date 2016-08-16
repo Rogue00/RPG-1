@@ -3,13 +3,7 @@ Grassland.prototype.constructor = Drawable;
 	
 function Grassland(width,height) {
 	Drawable.call(this,0,0,width,height);
-	
-	var grassTexture = new Image();
-	grassTexture.src = "img/grass.png";
-	grassTexture.addEventListener('load',function() {
-		this.needsRedraw = true;
-	}.bind(this));
-	
+
 	var solidConfig = {type:'brick'};
 	var collectableConfig = {type:'coin',collectMsg:'cool some coins...'};
 	
@@ -35,6 +29,13 @@ function Grassland(width,height) {
 		new Fire(height/2-32,height/2-32),
 		new Collectable(width/2,height/2,collectableConfig)
 	];
+
+
+	var grassTexture = new Image();
+	grassTexture.src = "img/grass.png";
+	grassTexture.addEventListener('load',function() {
+		this.needsRedraw = true;
+	}.bind(this));
 	
 	this.userDraw = function() {
 		this.context.fillStyle = this.context.createPattern(grassTexture,"repeat");

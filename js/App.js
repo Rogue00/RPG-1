@@ -3,12 +3,9 @@ function App(initCanvas) {
   canvas.style.backgroundColor = '#000';
   canvas.width = AppConfig.appWidth;
   canvas.height = AppConfig.appHeight;
-  
   var context = canvas.getContext('2d');
+  
   var contentPlates = [];
-  
-  var SHIFTSPEED = 3;
-  
   for(var i=0;i<20;i++) {
     contentPlates[i] = [];
     for(var b=0;b<20;b++) {
@@ -36,19 +33,19 @@ function App(initCanvas) {
     };
     
     if(KeyboardService.keysPressed.right) {
-      movement.x += SHIFTSPEED;      
+      movement.x += AppConfig.SHIFTSPEED;      
     }
     
     if(KeyboardService.keysPressed.left) {
-      movement.x -= SHIFTSPEED;
+      movement.x -= AppConfig.SHIFTSPEED;
     }
         
     if(KeyboardService.keysPressed.up) {
-      movement.y -= SHIFTSPEED;
+      movement.y -= AppConfig.SHIFTSPEED;
     }
     
     if(KeyboardService.keysPressed.down) {
-      movement.y += SHIFTSPEED;
+      movement.y += AppConfig.SHIFTSPEED;
     }
     
     // Check if hero is on the edges

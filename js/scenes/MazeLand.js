@@ -3,12 +3,6 @@ MazeLand.prototype.constructor = Drawable;
 	
 function MazeLand(width,height) {
 	Drawable.call(this,0,0,width,height);
-
-	var streetTexture = new Image();
-	streetTexture.src = "img/street.jpg";
-	streetTexture.addEventListener('load',function() {
-		this.needsRedraw = true;
-	}.bind(this));
 	
 	var solidConfig = {type:'brick'};
 	this.colliders = [
@@ -26,6 +20,11 @@ function MazeLand(width,height) {
 		}	
 	}
 	
+	var streetTexture = new Image();
+	streetTexture.src = "img/street.jpg";
+	streetTexture.addEventListener('load',function() {
+		this.needsRedraw = true;
+	}.bind(this));
 	
 	this.userDraw = function() {
 		this.context.fillStyle = this.context.createPattern(streetTexture,"repeat");

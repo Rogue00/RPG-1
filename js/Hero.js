@@ -3,15 +3,6 @@ Hero.prototype.constructor = Drawable;
 	
 function Hero(x,y) {
 	Drawable.call(this,x,y,30,32);
-
-	var heroSprite = new Image();
-	heroSprite.src = "img/hero.png";
-	  
-	heroSprite.addEventListener('load',function() {
-		this.needsRedraw = true;
-	}.bind(this));
-	
-	
 	
 	this.handleHit = function(hitRects,movement) {
 		for(var i=0;i<hitRects.length;i++) {
@@ -72,6 +63,14 @@ function Hero(x,y) {
 			this.needsRedraw = true;
 		}
 	}
+	
+	
+	var heroSprite = new Image();
+	heroSprite.src = "img/hero.png";
+	  
+	heroSprite.addEventListener('load',function() {
+		this.needsRedraw = true;
+	}.bind(this));
 	
 	this.userDraw = function() {
 		this.context.drawImage(

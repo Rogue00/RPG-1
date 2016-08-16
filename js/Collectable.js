@@ -26,7 +26,6 @@ function Collectable(x,y,itemConfig) {
 		this.needsRedraw = true;
 	}.bind(this));
 	
-	
 	this.userDraw = function() {
 		if(!collected) {
 			this.context.fillStyle = this.context.createPattern(texture,"repeat");

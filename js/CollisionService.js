@@ -18,12 +18,14 @@ var CollisionService = new function() {
 	}
 
 	this.checkCubicHit = function(a,b) {
+		
 		var out = {
 			top: (a.position.y + a.size.h) < (b.position.y) ? true: false,
 			bottom: a.position.y > (b.position.y + b.size.h) ? true: false,
 			left: ((a.position.x + a.size.w) < b.position.x) ? true: false,
 			right: a.position.x > (b.position.x + b.size.w) ? true: false
 		}
+		
 		if(!(out.top || out.bottom || out.left || out.right)) {
 			var x = Math.max(a.position.x, b.position.x);
 			var y = Math.max(a.position.y, b.position.y);
