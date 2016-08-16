@@ -2,36 +2,36 @@ Fire.prototype = Object.create(Drawable.prototype);
 Fire.prototype.constructor = Drawable;
 
 function Fire(x,y) {
-	Drawable.call(this,64,64,x,y);
+	Drawable.call(this,x,y,64,64);
 
 	var locked = false;
 	this.handleHit = function(hitObj) {
 		if(KeyboardService.keysPressed.space) {
 			if(!locked) {
 				locked = true;
-				if(InventoryService.getSelectedItem()!=undefined) {
-					switch(InventoryService.getSelectedItem().name) {
+				if(Inventory.getSelectedItem()!=undefined) {
+					switch(Inventory.getSelectedItem().name) {
 						case 'uncookedMeat':
-							if(InventoryService.getQty('uncookedMeat')>0) {
-								InventoryService.removeItem('uncookedMeat',1);
-								DialogService.addMessage("Mmmh... roasted meat.");
-								InventoryService.addItem('roastedMeat',1);
+							if(Inventory.getQty('uncookedMeat')>0) {
+								Inventory.removeItem('uncookedMeat',1);
+								Dialog.addMessage("Mmmh... roasted meat.");
+								Inventory.addItem('roastedMeat',1);
 							}
 							break;
 						case 'coin':
-							DialogService.addMessage("To melt a coin i need something to put it in.");
+							Dialog.addMessage("To melt a coin i need something to put it in.");
 							break;
 						case 'roastedMeat':
-							DialogService.addMessage("It's already roasted.");
+							Dialog.addMessage("It's already roasted.");
 							break;
 						case 'chicken':
-							DialogService.addMessage("YIIEK... That doesn't work.");
+							Dialog.addMessage("YIIEK... That doesn't work.");
 							break;
 						default:
-							DialogService.addMessage("I am hungry...");
+							Dialog.addMessage("I am hungry...");
 					}
 				} else {
-					DialogService.addMessage("Row, Row, Row Your Boat...");	
+					Dialog.addMessage("Row, Row, Row Your Boat...");	
 				}
 				setTimeout(function(){locked=false},1000);
 			}

@@ -2,7 +2,7 @@ Solid.prototype = Object.create(Drawable.prototype);
 Solid.prototype.constructor = Drawable;
 	
 function Solid(width,height,x,y,solidConfig) {
-	Drawable.call(this,width,height,x,y);
+	Drawable.call(this,x,y,width,height);
 
 	var texture = new Image();
 	texture.src = "img/"+solidConfig.type+".png";

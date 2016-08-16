@@ -2,7 +2,7 @@ MainPane.prototype = Object.create(Drawable.prototype);
 MainPane.prototype.constructor = Drawable;
 	
 function MainPane(width, height, contentPlates) {
-	Drawable.call(this,width,height,0,0);
+	Drawable.call(this,0,0,width,height);
   
   this.currentColliderSet = null;
   
@@ -23,7 +23,7 @@ function MainPane(width, height, contentPlates) {
   //Draw 3x3 plates
   for(var i=0;i<3;i++) { 
     for(var b=0;b<3;b++) { 
-      this.content.push(new Drawable(AppConfig.appWidth,AppConfig.appHeight,b*AppConfig.appWidth,i*AppConfig.appHeight)); 
+      this.content.push(new Drawable(b*AppConfig.appWidth,i*AppConfig.appHeight,AppConfig.appWidth,AppConfig.appHeight)); 
     } 
   } 
   
@@ -38,19 +38,19 @@ function MainPane(width, height, contentPlates) {
     }
     for(var i=0;i<3;i++) {
       for(var b=0;b<3;b++) {
-          var colliders = this.content[(i*3)+b].content[0].colliders;
-          if(colliders!=undefined) {
-            for(var j=0;j<colliders.length;j++) {
-              colliderSet.colliders.push({
-                obj: colliders[j],
-                size: colliders[j].size,
-                position: {
-                  x: colliders[j].position.x + ((cX-1)*this.canvas.width/3) + (b*this.canvas.width/3),
-                  y: colliders[j].position.y + ((cY-1)*this.canvas.height/3) + (i*this.canvas.height/3)
-                }
-              });
-            }
+        var colliders = this.content[(i*3)+b].content[0].colliders;
+        if(colliders!=undefined) {
+          for(var j=0;j<colliders.length;j++) {
+            colliderSet.colliders.push({
+              obj: colliders[j],
+              size: colliders[j].size,
+              position: {
+                x: colliders[j].position.x + ((cX-1)*this.canvas.width/3) + (b*this.canvas.width/3),
+                y: colliders[j].position.y + ((cY-1)*this.canvas.height/3) + (i*this.canvas.height/3)
+              }
+            });
           }
+        }
       }
     }
     this.currentColliderSet = colliderSet;
@@ -115,8 +115,6 @@ function MainPane(width, height, contentPlates) {
     } 
        
   }
-  
-
   
   this.rearrange = function() {
     for(var i=0;i<3;i++) {

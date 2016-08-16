@@ -2,7 +2,7 @@ Hero.prototype = Object.create(Drawable.prototype);
 Hero.prototype.constructor = Drawable;
 	
 function Hero(x,y) {
-	Drawable.call(this,30,32,x,y);
+	Drawable.call(this,x,y,30,32);
 
 	var heroSprite = new Image();
 	heroSprite.src = "img/hero.png";

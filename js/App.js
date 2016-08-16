@@ -14,15 +14,14 @@ function App(initCanvas) {
     for(var b=0;b<20;b++) {
       var rnd = Math.random();
       if(rnd<0.25) {
-        contentPlates[i].push(new Grassland(AppConfig.appWidth,AppConfig.appHeight,b+"|"+i));
+        contentPlates[i].push(new Grassland(AppConfig.appWidth,AppConfig.appHeight));
       } else if(rnd>0.5) {
-        contentPlates[i].push(new Streetland(AppConfig.appWidth,AppConfig.appHeight,b+"|"+i));
+        contentPlates[i].push(new Streetland(AppConfig.appWidth,AppConfig.appHeight));
       } else {
-        contentPlates[i].push(new MazeLand(AppConfig.appWidth,AppConfig.appHeight,b+"|"+i));
+        contentPlates[i].push(new MazeLand(AppConfig.appWidth,AppConfig.appHeight));
       }
     }
   }
-  
   var mainPane = new MainPane(3*canvas.width,3*canvas.height,contentPlates);
 
   var hero = new Hero(2400,1160);
@@ -82,8 +81,9 @@ function App(initCanvas) {
     mainPane.center(hero.position.x,hero.position.y);
     
     //Tick mainPane and draw
-    mainPane.loop();
-    mainPane.draw();
+    if(mainPane.loop()) {
+      mainPane.draw();
+    }
     context.drawImage(mainPane.canvas,
 						mainPane.translation.x,
 						mainPane.translation.y, 
@@ -99,20 +99,15 @@ function App(initCanvas) {
     }
     context.drawImage(hero.canvas, hero.position.x-mainPane.getPosition().x, hero.position.y-mainPane.getPosition().y);
     
-    
-    
     //Draw inventory
-    if(InventoryService.loop()) {
-      InventoryService.draw();
+    if(Inventory.loop()) {
+      Inventory.draw();
     }
-    context.drawImage(InventoryService.canvas, canvas.width-InventoryService.canvas.width-10,canvas.height/2-InventoryService.canvas.height/2);
+    context.drawImage(Inventory.canvas, canvas.width-Inventory.canvas.width-10,canvas.height/2-Inventory.canvas.height/2);
        
        
     //Draw dialogs
-    context.drawImage(DialogService.canvas, canvas.width/2-DialogService.canvas.width/2, canvas.height-DialogService.canvas.height);
-    
-    //TweenService.loop();
-    //mainPane.generateColliderSet();
+    context.drawImage(Dialog.canvas, canvas.width/2-Dialog.canvas.width/2, canvas.height-Dialog.canvas.height);
     
     context.fillStyle = '#fff';	
 		context.font = '18px verdana';
@@ -122,13 +117,11 @@ function App(initCanvas) {
   
   
   window.setTimeout(function() {
-    DialogService.addMessage(["My name's Grimwald Gudmund,", "and I want to be a Viking!" /*,"Look behind you... a three headed dragon!" */], 5000,"#fff","#000")
+    Dialog.addMessage(["My name's Grimwald Gudmund,", "and I want to be a Viking!" /*,"Look behind you... a three headed dragon!" */], false,"#fff","#000")
   }
-  ,4000);
- 
+  ,10);
   
   loop();
-  
 }
 
 

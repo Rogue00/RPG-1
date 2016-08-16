@@ -2,7 +2,7 @@ Collectable.prototype = Object.create(Drawable.prototype);
 Collectable.prototype.constructor = Drawable;
 	
 function Collectable(x,y,itemConfig) {
-	Drawable.call(this,24,24,x,y);
+	Drawable.call(this,x,y,24,24);
 	
 	var collected = false;
 	this.hits = itemConfig.hits||false;
@@ -12,8 +12,8 @@ function Collectable(x,y,itemConfig) {
 			if(!collected) {
 				collected = true;
 				this.needsRedraw = true;
-				InventoryService.addItem(itemConfig.type,1);
-				DialogService.addMessage(itemConfig.collectMsg);
+				Inventory.addItem(itemConfig.type,1);
+				Dialog.addMessage(itemConfig.collectMsg);
 			}
 		}
 	} else {

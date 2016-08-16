@@ -5,8 +5,8 @@ var streetTexture = new Image();
 streetTexture.src = "img/street.jpg";
 
 
-function Streetland(width,height,text) {
-	Drawable.call(this,width,height,0,0);
+function Streetland(width,height) {
+	Drawable.call(this,0,0,width,height);
 	
 	streetTexture.addEventListener('load',function() {
 		this.needsRedraw = true;
@@ -22,6 +22,7 @@ function Streetland(width,height,text) {
 		repeat: true,
 		steps: [
 			{x:+100,y:0,d:2000},
+			{d:2000},
 			{x:0,y:+100,a:-1,d:2000},
 			{x:-100,y:0,a:1,d:2000},
 			{x:0,y:-100,d:2000},
@@ -44,11 +45,6 @@ function Streetland(width,height,text) {
 	this.userDraw = function() {
 		this.context.fillStyle = this.context.createPattern(streetTexture,"repeat");
 		this.context.fillRect(0,0,this.canvas.width,this.canvas.height);
-		
-		this.context.fillStyle = '#fff';	
-		this.context.font = '18px verdana';
-		this.context.textBaseline = 'top';
-		this.context.fillText(text, 30,30);
 	}
 	
 }

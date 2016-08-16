@@ -1,11 +1,8 @@
-var InventoryService = new function () {
-	//TODO: export the drawing
+var Inventory = new function () {
+	this.prototype = Object.create(Drawable.prototype);
+	this.prototype.constructor = Drawable;
+	Drawable.call(this,0,0,40,5*(40+6));
 	
-	this.canvas = document.createElement('canvas');
-	this.context = this.canvas.getContext('2d');
-	this.canvas.width = 40;
-	this.canvas.height = 5*(40+6);
-	this.needsRedraw = false;	
 	this.items = [];
 	this.selectedItem = 0;
 	
@@ -63,20 +60,13 @@ var InventoryService = new function () {
 		}
 	}
 	
-	this.loop = function() {
-		return this.needsRedraw;
-	}
-	
 	var woodTexture = new Image();
 	woodTexture.src = "img/wood.png";
 	woodTexture.addEventListener('load',function() {
 		this.needsRedraw = true;
 	}.bind(this));
 	
-	this.draw = function() {
-		if(!this.needsRedraw) return;
-    	this.needsRedraw = false;
-    	this.context.clearRect(0,0,this.canvas.width,this.canvas.height);
+	this.userDraw = function() {
 		this.context.fillStyle = "#6E4803";
 		this.context.lineWidth = 2;
 		

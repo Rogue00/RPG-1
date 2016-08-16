@@ -1,6 +1,7 @@
-function Drawable(width,height,x,y) {
+function Drawable(x,y,width,height) {
   this.canvas = document.createElement('canvas');
   this.context = this.canvas.getContext('2d');
+  
   this.canvas.width = width;
   this.canvas.height = height;
     
@@ -47,9 +48,8 @@ function Drawable(width,height,x,y) {
       if(tween.deleteable) {
         deleteableTweens.push(tween);
       }
-      if(tween.tick()) {
-        this.needsRedraw = true;
-      }
+      tween.tick();
+      this.needsRedraw = true;
     }
     for(var i=0;i<deleteableTweens.length;i++) {
       this.tweens.splice(this.tweens.indexOf(deleteableTweens[i]),1);
@@ -100,5 +100,4 @@ function Drawable(width,height,x,y) {
       this.context.drawImage(this.colliders[i].canvas,this.colliders[i].position.x,this.colliders[i].position.y);	      
 		}
   }
-  
 }
