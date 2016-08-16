@@ -3,7 +3,7 @@ var CollisionService = new function() {
 	this.hitTest = function(obj,collisionSet,movement) {
 		var hits = [];
 		var a = {
-			position: { x: obj.position.x + movement.x, y: obj.position.y + movement.y},
+			position: { x: obj.getPosition().x + movement.x, y: obj.getPosition().y + movement.y},
 			size: {w: obj.size.w, h: obj.size.h}
 		}
 

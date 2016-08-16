@@ -72,6 +72,7 @@ var TweenService = new function () {
 	
 	
 	this.loop = function() {
+		var now = new Date().getTime();
 		for(var i=0;i<this.tweens.length;i++) {
 			var tween = this.tweens[i];
 
@@ -80,7 +81,6 @@ var TweenService = new function () {
 				tween.stepStart = new Date().getTime();
 				tween.stepStartPosition = {x: tween.config.object.position.x , y: tween.config.object.position.y };
 			}
-			var now = new Date().getTime();
 			
 			var currentStep = tween.config.steps[tween.currentStep];
 			var percentage = (now - tween.stepStart) / currentStep.d ; 

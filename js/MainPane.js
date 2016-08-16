@@ -41,12 +41,13 @@ function MainPane(width, height, contentPlates) {
         var colliders = this.content[(i*3)+b].content[0].colliders;
         if(colliders!=undefined) {
           for(var j=0;j<colliders.length;j++) {
+            var collider = colliders[j];
             colliderSet.colliders.push({
-              obj: colliders[j],
-              size: colliders[j].size,
+              obj: collider,
+              size: collider.size,
               position: {
-                x: colliders[j].position.x + ((cX-1)*this.canvas.width/3) + (b*this.canvas.width/3),
-                y: colliders[j].position.y + ((cY-1)*this.canvas.height/3) + (i*this.canvas.height/3)
+                x: collider.position.x + ((cX-1)*this.canvas.width/3) + (b*this.canvas.width/3),
+                y: collider.position.y + ((cY-1)*this.canvas.height/3) + (i*this.canvas.height/3)
               }
             });
           }

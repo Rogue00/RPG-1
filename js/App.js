@@ -115,7 +115,6 @@ function App(initCanvas) {
 		context.fillText('FPS: '+ FPS.getFPS(), 0,0);
   }
   
-  
   window.setTimeout(function() {
     Dialog.addMessage(["My name's Grimwald Gudmund,", "and I want to be a Viking!" /*,"Look behind you... a three headed dragon!" */], false,"#fff","#000")
   }
