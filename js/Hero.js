@@ -54,18 +54,6 @@ function Hero(x,y) {
 		}
 	}
 	
-	this.shiftHeroAnimation = function() {
-		if(this.spritePosition.x>1) this.spritePosition.x=-1;
-		this.spritePosition.x+=1;
-		this.needsRedraw = true;
-	}
-	
-	setInterval(function() {
-		if(KeyboardService.keysPressed.down||KeyboardService.keysPressed.up||KeyboardService.keysPressed.left||KeyboardService.keysPressed.right) {
-			this.shiftHeroAnimation();
-		}		
-	}.bind(this),350);
-	
 	this.userLoop = function() {
 		if(KeyboardService.keysPressed.down) {
 			this.spritePosition.y = 0;
@@ -98,6 +86,18 @@ function Hero(x,y) {
 						this.canvas.height
 					);
 	}
+
+	this.shiftHeroAnimation = function() {
+		if(this.spritePosition.x>1) this.spritePosition.x=-1;
+		this.spritePosition.x+=1;
+		this.needsRedraw = true;
+	}
+	
+	setInterval(function() {
+		if(KeyboardService.keysPressed.down||KeyboardService.keysPressed.up||KeyboardService.keysPressed.left||KeyboardService.keysPressed.right) {
+			this.shiftHeroAnimation();
+		}		
+	}.bind(this),350);
 	
 	window.addEventListener('KeyboardServiceKeyUp', function() {
 		if(KeyboardService.keysPressed.left||KeyboardService.keysPressed.right||KeyboardService.keysPressed.up||KeyboardService.keysPressed.down) {

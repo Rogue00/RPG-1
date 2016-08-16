@@ -68,8 +68,6 @@ function Fire(x,y) {
 		this.needsRedraw = true;
 	}
 	
-	setInterval(function() {
-			this.shiftFireAnimation();
-	}.bind(this),400);
+	setInterval(this.shiftFireAnimation.bind(this),400);
 	
 }
