@@ -14,21 +14,20 @@ function App(initCanvas) {
     for(var b=0;b<20;b++) {
       var rnd = Math.random();
       if(rnd<0.25) {
-        contentPlates[i].push(new Grassland(AppConfig.appWidth,AppConfig.appHeight));
+        contentPlates[i].push(new Grassland(AppConfig.appWidth,AppConfig.appHeight,b+"|"+i));
       } else if(rnd>0.5) {
-        contentPlates[i].push(new Streetland(AppConfig.appWidth,AppConfig.appHeight));
+        contentPlates[i].push(new Streetland(AppConfig.appWidth,AppConfig.appHeight,b+"|"+i));
       } else {
-        contentPlates[i].push(new MazeLand(AppConfig.appWidth,AppConfig.appHeight));
+        contentPlates[i].push(new MazeLand(AppConfig.appWidth,AppConfig.appHeight,b+"|"+i));
       }
     }
   }
   
   var mainPane = new MainPane(3*canvas.width,3*canvas.height,contentPlates);
 
-  var hero = new Hero();
-  //Set Hero start Position
-  PositionService.setPosition(hero,2400,1160);
-  
+  var hero = new Hero(2400,1160);
+  mainPane.center(hero.position.x,hero.position.y);
+    
   var loop = function() {
     window.requestAnimationFrame(loop);
     
@@ -54,22 +53,22 @@ function App(initCanvas) {
     }
     
     // Check if hero is on the edges
-    if(hero.getPosition().x+movement.x<0) {
-      movement.x = -hero.getPosition().x;
+    if(hero.position.x+movement.x<0) {
+      movement.x = -hero.position.x;
     }
     
-    if(hero.getPosition().x + movement.x + hero.size.w > (contentPlates[0].length)*canvas.width) {
-      movement.x = (contentPlates[0].length)*canvas.width - hero.getPosition().x - hero.size.w;
+    if(hero.position.x + movement.x + hero.size.w > (contentPlates[0].length)*canvas.width) {
+      movement.x = (contentPlates[0].length)*canvas.width - hero.position.x - hero.size.w;
     }
     
     
-    if(hero.getPosition().y+movement.y<=0) {
-      movement.y = -hero.getPosition().y;
+    if(hero.position.y+movement.y<=0) {
+      movement.y = -hero.position.y;
     }
     
   
-    if(hero.getPosition().y + movement.y + hero.size.h>(contentPlates.length)*canvas.height) {
-      movement.y = (contentPlates.length)*canvas.height - hero.getPosition().y - hero.size.h;
+    if(hero.position.y + movement.y + hero.size.h>(contentPlates.length)*canvas.height) {
+      movement.y = (contentPlates.length)*canvas.height - hero.position.y - hero.size.h;
     }
     
     // Hittest
@@ -80,12 +79,11 @@ function App(initCanvas) {
     hero.move(movement.x,movement.y);
     
     //Center mainPane on hero position
-    mainPane.center(hero.getPosition().x,hero.getPosition().y);
+    mainPane.center(hero.position.x,hero.position.y);
     
     //Tick mainPane and draw
-    if(mainPane.loop()) {
-      mainPane.draw();
-    }
+    mainPane.loop();
+    mainPane.draw();
     context.drawImage(mainPane.canvas,
 						mainPane.translation.x,
 						mainPane.translation.y, 
@@ -99,7 +97,7 @@ function App(initCanvas) {
     if(hero.loop()) {
       hero.draw();
     }
-    context.drawImage(hero.canvas, hero.getPosition().x-mainPane.getPosition().x, hero.getPosition().y-mainPane.getPosition().y);
+    context.drawImage(hero.canvas, hero.position.x-mainPane.getPosition().x, hero.position.y-mainPane.getPosition().y);
     
     
     
@@ -113,8 +111,8 @@ function App(initCanvas) {
     //Draw dialogs
     context.drawImage(DialogService.canvas, canvas.width/2-DialogService.canvas.width/2, canvas.height-DialogService.canvas.height);
     
-    TweenService.loop();
-    mainPane.generateColliderSet();
+    //TweenService.loop();
+    //mainPane.generateColliderSet();
     
     context.fillStyle = '#fff';	
 		context.font = '18px verdana';

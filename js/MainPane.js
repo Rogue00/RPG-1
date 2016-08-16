@@ -1,17 +1,19 @@
-
+MainPane.prototype = Object.create(Drawable.prototype);
+MainPane.prototype.constructor = Drawable;
+	
 function MainPane(width, height, contentPlates) {
-  this.canvas = document.createElement('canvas');
-  this.context = this.canvas.getContext('2d');
-  this.needsRedraw = false;
+	Drawable.call(this,width,height,0,0);
+  
   this.currentColliderSet = null;
   
-  this.canvas.width = width;
-  this.canvas.height = height;
   this.translation = {
-    x: this.canvas.width/3,
-    y: this.canvas.height/3
+    x: 0,
+    y: 0
   }; 
  
+  //Calculate Start Position
+  var cX = -1;
+  var cY = -1;
   
   this.size = {
     w: width,
@@ -19,11 +21,9 @@ function MainPane(width, height, contentPlates) {
   } 
   
   //Draw 3x3 plates
-  var plates = []; 
   for(var i=0;i<3;i++) { 
-    plates[i] = []; 
     for(var b=0;b<3;b++) { 
-      plates[i].push(new Plate(AppConfig.appWidth,AppConfig.appHeight)); 
+      this.content.push(new Drawable(AppConfig.appWidth,AppConfig.appHeight,b*AppConfig.appWidth,i*AppConfig.appHeight)); 
     } 
   } 
   
@@ -36,23 +36,21 @@ function MainPane(width, height, contentPlates) {
       offset: 0,
       colliders: []
     }
-    
-    for(var i=0;i<plates.length;i++) {
-      for(var b=0;b<plates[i].length;b++) {
-        if(plates[i][b].getContent()) {
-          if(plates[i][b].getContent().colliders!=undefined) {
-            for(var j=0;j<plates[i][b].getContent().colliders.length;j++) {
+    for(var i=0;i<3;i++) {
+      for(var b=0;b<3;b++) {
+          var colliders = this.content[(i*3)+b].content[0].colliders;
+          if(colliders!=undefined) {
+            for(var j=0;j<colliders.length;j++) {
               colliderSet.colliders.push({
-                obj: plates[i][b].getContent().colliders[j],
-                size: plates[i][b].getContent().colliders[j].size,
+                obj: colliders[j],
+                size: colliders[j].size,
                 position: {
-                  x: plates[i][b].getContent().colliders[j].getPosition().x + ((cX-1)*this.canvas.width/3) + (i*this.canvas.width/3),
-                  y: plates[i][b].getContent().colliders[j].getPosition().y + ((cY-1)*this.canvas.height/3) + (b*this.canvas.height/3)
+                  x: colliders[j].position.x + ((cX-1)*this.canvas.width/3) + (b*this.canvas.width/3),
+                  y: colliders[j].position.y + ((cY-1)*this.canvas.height/3) + (i*this.canvas.height/3)
                 }
               });
             }
           }
-        } 
       }
     }
     this.currentColliderSet = colliderSet;
@@ -74,6 +72,7 @@ function MainPane(width, height, contentPlates) {
       y: (cY-1)*(this.size.h/3)+this.translation.y
     }
   }
+  
   this.getPlatesOffset = function() {
     return {
       x: (cX-1)*(this.size.w/3),
@@ -81,13 +80,15 @@ function MainPane(width, height, contentPlates) {
     }
   }
   
+  this.userLoop = function() {
+    this.generateColliderSet();
+  }
   
   
   this.center = function(x,y) {
-    var newCX = (x/(this.canvas.width/3)<<0);
-    var newCY = (y/(this.canvas.height/3)<<0);
-    
-    if((newCX!=cX && newCX>0 && newCX<contentPlates.length-1) || (newCY!=cY && newCY>0 && newCY<contentPlates[0].length-1)) {
+    var newCX = (x/(this.size.w/3)<<0);
+    var newCY = (y/(this.size.h/3)<<0);
+    if((newCX!=cX && newCX>=0 && newCX<contentPlates.length-1) || (newCY!=cY && newCY>=0 && newCY<contentPlates[0].length-1)) {
       cX = newCX > 0 && newCX < contentPlates.length-1 ? newCX : newCX<1 ? 1 : contentPlates.length-2;
       cY = newCY > 0 && newCY < contentPlates[0].length-1 ? newCY : newCY < 1 ? 1 : contentPlates[0].length-2
       this.rearrange();
@@ -115,49 +116,17 @@ function MainPane(width, height, contentPlates) {
        
   }
   
-  //Calculate Start Position
-  var cX = contentPlates.length/2<<0;
-  var cY = contentPlates[cX].length/2<<0;
-  
+
   
   this.rearrange = function() {
-    for(var i=0;i<plates.length;i++) {
-      for(var b=0;b<plates[i].length;b++) {
-        plates[i][b].setContent(contentPlates[cX-((plates.length/2<<0)-i)][cY-((plates[i].length/2<<0)-b)]);
+    for(var i=0;i<3;i++) {
+      for(var b=0;b<3;b++) {
+        this.content[(i*3)+b].content = [contentPlates[cX+b-1][cY+i-1]];
+        this.content[(i*3)+b].needsRedraw = true;
       } 
     }
     this.generateColliderSet();
     this.needsRedraw = true;
   }
 
-  
-  this.loop = function() {
-    for(var i=0;i<3;i++) {
-      for(var b=0;b<3;b++) {
-        plates[i][b].loop();
-        if(plates[i][b].needsRedraw) {
-          this.needsRedraw = true;
-        }
-      } 
-    }
-    return this.needsRedraw;
-  }
-  
-  this.draw = function() {
-    if(!this.needsRedraw) return;
-    for(var i=0;i<3;i++) {
-      for(var b=0;b<3;b++) {
-          plates[i][b].draw(); 
-      } 
-    }
-    this.needsRedraw = false;
-    
-    for(var i=0;i<3;i++) {
-      for(var b=0;b<3;b++) {
-        this.context.drawImage(plates[i][b].canvas,i*(this.canvas.width/3),b*(this.canvas.height/3));
-      } 
-    }
-  } 
-  
-  this.rearrange();
 }

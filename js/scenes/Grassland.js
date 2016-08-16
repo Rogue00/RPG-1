@@ -1,8 +1,8 @@
-Grassland.prototype = Object.create(PlateContent.prototype);
-Grassland.prototype.constructor = PlateContent;
+Grassland.prototype = Object.create(Drawable.prototype);
+Grassland.prototype.constructor = Drawable;
 	
 function Grassland(width,height,text) {
-	PlateContent.call(this,width,height,text);
+	Drawable.call(this,width,height,0,0);
 	
 	var grassTexture = new Image();
 	grassTexture.src = "img/grass.png";
@@ -15,16 +15,16 @@ function Grassland(width,height,text) {
 	
 	var coin = new Collectable(90,90,collectableConfig);
 	
-	TweenService.addTween({
+	this.tweens.push(TweenService.createTween({
 		object: coin,
-		repeat: true,
+		repeat: false,
 		steps: [
 			{x:+120,y:0,d:2000,spritePosition:[0,1]},
 			{x:0,y:+120,d:2000,spritePosition:[0,1]},
 			{x:-120,y:0,d:2000,spritePosition:[0,1]},
 			{x:0,y:-120,d:2000,spritePosition:[0,1]},
 		]
-	})
+	}));
 	
 	this.colliders = [
 		new Solid(width/2,32,0,0,solidConfig),
@@ -36,30 +36,14 @@ function Grassland(width,height,text) {
 		new Collectable(width/2,height/2,collectableConfig)
 	];
 	
-	this.loop = function() {
-		for(var i=0;i<this.colliders.length;i++) {
-			if(this.colliders[i].needsRedraw) {
-				this.needsRedraw = true;
-			}
-			this.colliders[i].loop();
-		}
-		return this.needsRedraw;
-	}
-	
-	this.draw = function() {
-		for(var i=0;i<this.colliders.length;i++) {
-			this.colliders[i].draw();
-		}
-		if(!this.needsRedraw) return;
-		this.needsRedraw = false;
-		
+	this.userDraw = function() {
 		this.context.fillStyle = this.context.createPattern(grassTexture,"repeat");
 		this.context.fillRect(0,0,this.canvas.width,this.canvas.height);
 		
-		for(var i=0;i<this.colliders.length;i++) {
-			this.context.drawImage(this.colliders[i].canvas,this.colliders[i].getPosition().x,this.colliders[i].getPosition().y);	
-		}
-		
+		this.context.fillStyle = '#fff';	
+		this.context.font = '18px verdana';
+		this.context.textBaseline = 'top';
+		this.context.fillText(text, 30,30);
 	}
 	
 }

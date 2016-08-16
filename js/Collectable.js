@@ -1,8 +1,8 @@
-Collectable.prototype = Object.create(PlateContent.prototype);
-Collectable.prototype.constructor = PlateContent;
+Collectable.prototype = Object.create(Drawable.prototype);
+Collectable.prototype.constructor = Drawable;
 	
 function Collectable(x,y,itemConfig) {
-	PlateContent.call(this,24,24,x,y);
+	Drawable.call(this,24,24,x,y);
 	
 	var collected = false;
 	this.hits = itemConfig.hits||false;
@@ -27,10 +27,7 @@ function Collectable(x,y,itemConfig) {
 	}.bind(this));
 	
 	
-	this.draw = function() {
-		if(!this.needsRedraw) return;
-		this.needsRedraw = false;
-		this.context.clearRect(0,0,this.canvas.width,this.canvas.height);
+	this.userDraw = function() {
 		if(!collected) {
 			this.context.fillStyle = this.context.createPattern(texture,"repeat");
 			this.context.fillRect(0,0,this.canvas.width,this.canvas.height);

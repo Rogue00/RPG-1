@@ -1,12 +1,12 @@
-Streetland.prototype = Object.create(PlateContent.prototype);
-Streetland.prototype.constructor = PlateContent;
+Streetland.prototype = Object.create(Drawable.prototype);
+Streetland.prototype.constructor = Drawable;
 	
 var streetTexture = new Image();
 streetTexture.src = "img/street.jpg";
 
 
-function Streetland(width,height) {
-	PlateContent.call(this,width,height);
+function Streetland(width,height,text) {
+	Drawable.call(this,width,height,0,0);
 	
 	streetTexture.addEventListener('load',function() {
 		this.needsRedraw = true;
@@ -17,16 +17,16 @@ function Streetland(width,height) {
 	
 	var guardian = new Solid(32,32,width/2-50,height/2-50,solidConfig);
 	
-	TweenService.addTween({
+	this.tweens.push(TweenService.createTween({
 		object: guardian,
 		repeat: true,
 		steps: [
 			{x:+100,y:0,d:2000},
-			{x:0,y:+100,d:2000},
-			{x:-100,y:0,d:2000},
+			{x:0,y:+100,a:-1,d:2000},
+			{x:-100,y:0,a:1,d:2000},
 			{x:0,y:-100,d:2000},
 		]
-	})
+	}));
 	
 	this.colliders = [
 		new Solid(width/2,32,0,0,solidConfig),
@@ -41,30 +41,14 @@ function Streetland(width,height) {
 		guardian
 	];
 	
-	this.loop = function() {
-		for(var i=0;i<this.colliders.length;i++) {
-			this.colliders[i].loop();
-			if(this.colliders[i].needsRedraw) {
-				this.needsRedraw = true;
-			}
-		}
-		return this.needsRedraw;
-	}
-	
-	this.draw = function() {
-		for(var i=0;i<this.colliders.length;i++) {
-			this.colliders[i].draw();
-		}
-		if(!this.needsRedraw) return;
-		this.needsRedraw = false;
-		
+	this.userDraw = function() {
 		this.context.fillStyle = this.context.createPattern(streetTexture,"repeat");
 		this.context.fillRect(0,0,this.canvas.width,this.canvas.height);
 		
-		for(var i=0;i<this.colliders.length;i++) {
-			this.context.drawImage(this.colliders[i].canvas,this.colliders[i].getPosition().x,this.colliders[i].getPosition().y);	
-		}
-		
+		this.context.fillStyle = '#fff';	
+		this.context.font = '18px verdana';
+		this.context.textBaseline = 'top';
+		this.context.fillText(text, 30,30);
 	}
 	
 }

@@ -1,11 +1,8 @@
-MazeLand.prototype = Object.create(PlateContent.prototype);
-MazeLand.prototype.constructor = PlateContent;
+MazeLand.prototype = Object.create(Drawable.prototype);
+MazeLand.prototype.constructor = Drawable;
 	
-
-
-
 function MazeLand(width,height,text) {
-	PlateContent.call(this,width,height,text);
+	Drawable.call(this,width,height,0,0);
 
 	var streetTexture = new Image();
 	streetTexture.src = "img/street.jpg";
@@ -30,20 +27,14 @@ function MazeLand(width,height,text) {
 	}
 	
 	
-	this.draw = function() {
-		for(var i=0;i<this.colliders.length;i++) {
-			this.colliders[i].draw();
-		}
-		if(!this.needsRedraw) return;
-		this.needsRedraw = false;
-		
+	this.userDraw = function() {
 		this.context.fillStyle = this.context.createPattern(streetTexture,"repeat");
 		this.context.fillRect(0,0,this.canvas.width,this.canvas.height);
 		
-		for(var i=0;i<this.colliders.length;i++) {
-			this.context.drawImage(this.colliders[i].canvas,this.colliders[i].getPosition().x,this.colliders[i].getPosition().y);	
-		}
-		
+		this.context.fillStyle = '#fff';	
+		this.context.font = '18px verdana';
+		this.context.textBaseline = 'top';
+		this.context.fillText(text, 30,30);
 	}
 	
 }

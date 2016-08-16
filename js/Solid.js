@@ -1,8 +1,8 @@
-Solid.prototype = Object.create(PlateContent.prototype);
-Solid.prototype.constructor = PlateContent;
+Solid.prototype = Object.create(Drawable.prototype);
+Solid.prototype.constructor = Drawable;
 	
 function Solid(width,height,x,y,solidConfig) {
-	PlateContent.call(this,width,height,x,y);
+	Drawable.call(this,width,height,x,y);
 
 	var texture = new Image();
 	texture.src = "img/"+solidConfig.type+".png";
@@ -11,9 +11,7 @@ function Solid(width,height,x,y,solidConfig) {
 		this.draw();
 	}.bind(this));
 	
-	this.draw = function() {
-		if(!this.needsRedraw) return;
-		this.needsRedraw = false;
+	this.userDraw = function() {
 		this.context.fillStyle = this.context.createPattern(texture,"repeat");
 		this.context.fillRect(0,0,this.canvas.width,this.canvas.height);
 	}

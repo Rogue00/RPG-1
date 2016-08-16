@@ -1,21 +1,10 @@
-Fire.prototype = Object.create(PlateContent.prototype);
-Fire.prototype.constructor = PlateContent;
-
-
+Fire.prototype = Object.create(Drawable.prototype);
+Fire.prototype.constructor = Drawable;
 
 function Fire(x,y) {
-	PlateContent.call(this,64,64);
-	
-	var spritePosition = {x:0,y:0};
-	
-	this.getPosition = function() {
-		return {
-			x: x,
-			y: y
-		} 
-	}
-	var locked = false;
+	Drawable.call(this,64,64,x,y);
 
+	var locked = false;
 	this.handleHit = function(hitObj) {
 		if(KeyboardService.keysPressed.space) {
 			if(!locked) {
@@ -50,25 +39,17 @@ function Fire(x,y) {
 		}
 	}
 	
-	this.loop = function() {
-		return this.needsRedraw;
-	}
-
 	var fireTexture = new Image();
 	fireTexture.src = "img/fire.png";
 	fireTexture.addEventListener('load',function() {
 		this.needsRedraw = true;
 	}.bind(this));
 	
-	this.draw = function() {
-		if(!this.needsRedraw) return;
-		this.needsRedraw = false;
-		
-		this.context.clearRect(0,0,this.canvas.width,this.canvas.height);
+	this.userDraw = function() {
 		this.context.drawImage(
 						fireTexture,
-						spritePosition.x*this.canvas.width,
-						spritePosition.y*this.canvas.height,
+						this.spritePosition.x*this.canvas.width,
+						this.spritePosition.y*this.canvas.height,
 						this.canvas.width,
 						this.canvas.height,
 						0,
@@ -79,10 +60,10 @@ function Fire(x,y) {
 	}
 	
 	this.shiftFireAnimation = function() {
-		if(spritePosition.y==1) {
-			spritePosition.y=0;	
+		if(this.spritePosition.y==1) {
+			this.spritePosition.y=0;	
 		} else {
-			spritePosition.y=1;
+			this.spritePosition.y=1;
 		}
 		this.needsRedraw = true;
 	}

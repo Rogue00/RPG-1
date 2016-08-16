@@ -1,17 +1,8 @@
-function Hero() {
-	this.canvas = document.createElement('canvas');
-  	this.canvas.width = 30;
-  	this.canvas.height = 32;
-	this.context = this.canvas.getContext('2d');
-  	
-	this.size = {
-		w: this.canvas.width,
-		h: this.canvas.height
-	}
-	  
-  	this.needsRedraw = false;
-	  
-	var spritePosition = {x:0,y:0};
+Hero.prototype = Object.create(Drawable.prototype);
+Hero.prototype.constructor = Drawable;
+	
+function Hero(x,y) {
+	Drawable.call(this,30,32,x,y);
 
 	var heroSprite = new Image();
 	heroSprite.src = "img/hero.png";
@@ -20,17 +11,7 @@ function Hero() {
 		this.needsRedraw = true;
 	}.bind(this));
 	
-	this.getPosition = function() {
-		return PositionService.getPosition(this);
-	}
-	this.setPosition = function(x,y) {
-		return PositionService.setPosition(this,x,y);
-	}
 	
-	this.move = function(x,y) {
-		var currentPosition = PositionService.getPosition(this);
-		PositionService.setPosition(this,currentPosition.x+x,currentPosition.y+y);
-	}
 	
 	this.handleHit = function(hitRects,movement) {
 		for(var i=0;i<hitRects.length;i++) {
@@ -47,11 +28,11 @@ function Hero() {
 				continue;
 			}
 			
-			var newX = this.getPosition().x;
-			var newY = this.getPosition().y;
+			var newX = this.position.x;
+			var newY = this.position.y;
 
 			if(rect[2]>rect[3] && rect[3]>=0) {
-				if(this.getPosition().y  < collidor.position.y) {
+				if(this.position.y  < collidor.position.y) {
 					newY = (collidor.position.y - this.size.h);
 					movement.y=0;
 				} else {
@@ -61,7 +42,7 @@ function Hero() {
 			}
 			
 			if(rect[2]<rect[3] && rect[2]>=0) {
-				if(this.getPosition().x < collidor.position.x) {
+				if(this.position.x < collidor.position.x) {
 					newX = (collidor.position.x - this.size.w);
 					movement.x=0;
 				} else {
@@ -74,8 +55,8 @@ function Hero() {
 	}
 	
 	this.shiftHeroAnimation = function() {
-		if(spritePosition.x>1) spritePosition.x=-1;
-		spritePosition.x+=1;
+		if(this.spritePosition.x>1) this.spritePosition.x=-1;
+		this.spritePosition.x+=1;
 		this.needsRedraw = true;
 	}
 	
@@ -85,36 +66,30 @@ function Hero() {
 		}		
 	}.bind(this),350);
 	
-	this.loop = function() {
+	this.userLoop = function() {
 		if(KeyboardService.keysPressed.down) {
-			spritePosition.y = 0;
+			this.spritePosition.y = 0;
 			this.needsRedraw = true;
 		}
 		if(KeyboardService.keysPressed.up) {
-			spritePosition.y = 3;
+			this.spritePosition.y = 3;
 			this.needsRedraw = true;
 		}
 		if(KeyboardService.keysPressed.right) {
-			spritePosition.y = 2;
+			this.spritePosition.y = 2;
 			this.needsRedraw = true;
 		}
 		if(KeyboardService.keysPressed.left) {
-			spritePosition.y = 1;
+			this.spritePosition.y = 1;
 			this.needsRedraw = true;
 		}
-		return this.needsRedraw;
 	}
 	
-	this.draw = function() {
-		if(!this.needsRedraw) return;
-		this.needsRedraw = false;
-		
-		this.context.clearRect(0,0,this.canvas.width,this.canvas.height);
-
+	this.userDraw = function() {
 		this.context.drawImage(
 						heroSprite,
-						spritePosition.x*this.canvas.width,
-						spritePosition.y*this.canvas.height,
+						this.spritePosition.x*this.canvas.width,
+						this.spritePosition.y*this.canvas.height,
 						this.canvas.width,
 						this.canvas.height,
 						0,
