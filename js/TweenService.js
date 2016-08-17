@@ -28,7 +28,11 @@ var TweenService = new function () {
 					
 					if(currentStep.a)	
 						this.config.object.alpha = this.stepStartPosition.a + (percentage*currentStep.a);
-					
+
+					if(currentStep.spritePosition) {
+						this.config.object.spritePosition.x = currentStep.spritePosition[0];
+						this.config.object.spritePosition.y = currentStep.spritePosition[1];						
+					}
 					
 					this.config.object.needsRedraw = true;
 					

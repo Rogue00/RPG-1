@@ -6,6 +6,49 @@ function Grassland(width,height) {
 
 	var solidConfig = {type:'brick'};
 	var collectableConfig = {type:'coin',collectMsg:'cool some coins...'};
+	var redFlowerConfig = {type:'redFlower', hits:false,
+		handleHit: function(hitObj) {
+			Dialog.addMessage("I feel like a Hippy.");
+		}
+	};
+	
+	var benchConfig = {type:'bench', hits:true};
+	var treeConfig = {type:'tree', hits:true};
+	
+	
+	var fountainConfig = {type:'fountain', handleHit: function(hitObj) {
+		if(KeyboardService.keysPressed.space) {
+			if(!this.locked) {
+				this.locked = true;
+				if(Inventory.getSelectedItem()!=undefined) {
+						switch(Inventory.getSelectedItem().name) {
+							case 'coin':
+								if(Inventory.getQty('coin')>0) {
+									Inventory.removeItem('coin',1);
+									Dialog.addMessage("PLONK... PLONK... PLONK... Blub....");
+								}
+								break;
+							default:
+								Dialog.addMessage("That does not work...");
+						}
+				} else {
+					Dialog.addMessage("Heeeeeeeeelllllllllooo TIMMY!!!");
+				}
+				setTimeout(function(){this.locked=false}.bind(this),1000);
+			}			
+		}
+	}};
+	
+	var waterspoutFountainConfig = {type:'waterspoutFountain', handleHit: function(hitObj) {
+		if(KeyboardService.keysPressed.space) {
+			if(!this.locked) {
+				this.locked = true;
+				Dialog.addMessage("Plitsch platsch... Water games are awesome.");
+				setTimeout(function(){this.locked=false}.bind(this),1000);
+			}			
+		}
+	}};
+	var waterspoutFountain = new Solid(96,94,width/2,height/2,waterspoutFountainConfig);
 	
 	var coin = new Collectable(90,90,collectableConfig);
 	
@@ -20,14 +63,34 @@ function Grassland(width,height) {
 		]
 	}));
 	
+	var spriteYPosition =Math.round(Math.random())>>0;
+	
+	this.tweens.push(TweenService.createTween({
+		object: waterspoutFountain,
+		repeat: true,
+		steps: [
+			{d:300,spritePosition:[0,spriteYPosition]},
+			{d:300,spritePosition:[1,spriteYPosition]},
+			{d:300,spritePosition:[2,spriteYPosition]},
+			{d:300,spritePosition:[3,spriteYPosition]},
+		]
+	}));
+	
 	this.colliders = [
 		new Solid(width/2,32,0,0,solidConfig),
 		new Solid(width/2,32,width/2+32,0,solidConfig),
 		new Solid(32,height/2,0,0,solidConfig),
 		new Solid(32,height/2,0,height/2+32,solidConfig),
+		new Solid(52,64,700,200,fountainConfig),
+		new Solid(9,16,700,400,redFlowerConfig),
+		new Solid(9,16,710,420,redFlowerConfig),
+		new Solid(9,16,690,410,redFlowerConfig),
+		new Solid(62,36,690,350,benchConfig),
+		new Solid(128,153,720,300,treeConfig),
 		coin,
 		new Fire(height/2-32,height/2-32),
-		new Collectable(width/2,height/2,collectableConfig)
+		waterspoutFountain,
+		new Collectable(width/2-100,height/2,collectableConfig)
 	];
 
 
