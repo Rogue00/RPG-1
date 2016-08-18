@@ -52,7 +52,7 @@ var Dialog = new function() {
 				this.context.font = tmpFontSize+'pt Verdana';
 				while(this.context.measureText(messages[0].message).width>this.canvas.width) {
 					tmpFontSize--;
-					this.context.font = tmpFontSize+'pt bold Verdana';
+					this.context.font = tmpFontSize+'pt Verdana';
 				}
 				this.context.fillText(messages[0].message,this.canvas.width/2,this.canvas.height/2);
 

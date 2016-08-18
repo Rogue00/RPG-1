@@ -113,7 +113,7 @@ function App(initCanvas) {
   }
   
   window.setTimeout(function() {
-    Dialog.addMessage(["My name's Grimwald Gudmund,", "and I want to be a Viking!" /*,"Look behind you... a three headed dragon!" */], false,"#fff","#000")
+    Dialog.addMessage(["My name's Grimwald Gudmund,", "and I want to be a franconian!" /*,"Look behind you... a three headed dragon!" */], false,"#fff","#000")
   }
   ,10);
   
