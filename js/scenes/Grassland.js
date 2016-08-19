@@ -57,7 +57,7 @@ function Grassland(width,height) {
 	}};
 	var waterspoutFountain = new Solid(96,94,width/2-45,height/2,waterspoutFountainConfig);
 	
-	var coin = new Collectable(90,90,collectableConfig);
+	var coin = new Collectable(90,90,24,24,collectableConfig);
 	
 	this.tweens.push(TweenService.createTween({
 		object: coin,
@@ -99,7 +99,7 @@ function Grassland(width,height) {
 		coin,
 		new Fire(height/2-32,height/2-32),
 		waterspoutFountain,
-		new Collectable(width/2-100,height/2,collectableConfig)
+		new Collectable(width/2-100,height/2,24,24,collectableConfig)
 	];
 
 
@@ -111,7 +111,7 @@ function Grassland(width,height) {
 	
 	this.userDraw = function() {
 		this.context.fillStyle = this.context.createPattern(grassTexture,"repeat");
-		this.context.fillRect(0,0,this.canvas.width,this.canvas.height);
+		this.context.fillRect(0,0,this.size.w,this.size.h);
 	}
 	
 }

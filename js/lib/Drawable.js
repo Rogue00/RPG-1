@@ -4,7 +4,7 @@ function Drawable(x,y,width,height) {
   
   this.canvas.width = width;
   this.canvas.height = height;
-    
+  
   this.needsRedraw = false;
   
   this.position = {
@@ -81,8 +81,6 @@ function Drawable(x,y,width,height) {
   this.draw = function() {
     if(!this.needsRedraw) return;
     this.needsRedraw = false;
-    
-    this.context.clearRect(0,0,this.canvas.width,this.canvas.height);
     
     this.context.globalAlpha = this.alpha;
     

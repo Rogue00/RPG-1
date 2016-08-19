@@ -1,8 +1,8 @@
 Collectable.prototype = Object.create(Drawable.prototype);
 Collectable.prototype.constructor = Drawable;
 	
-function Collectable(x,y,itemConfig) {
-	Drawable.call(this,x,y,24,24);
+function Collectable(x,y,width,height,itemConfig) {
+	Drawable.call(this,x,y,width,height);
 	
 	var collected = false;
 	this.hits = itemConfig.hits||false;
@@ -11,9 +11,11 @@ function Collectable(x,y,itemConfig) {
 		this.handleHit = function(hitObj) {
 			if(!collected) {
 				collected = true;
+				this.context.clearRect(0,0,this.size.w,this.size.h);
 				this.needsRedraw = true;
 				Inventory.addItem(itemConfig.type,1);
 				Dialog.addMessage(itemConfig.collectMsg);
+				
 			}
 		}
 	} else {
@@ -29,7 +31,7 @@ function Collectable(x,y,itemConfig) {
 	this.userDraw = function() {
 		if(!collected) {
 			this.context.fillStyle = this.context.createPattern(texture,"repeat");
-			this.context.fillRect(0,0,this.canvas.width,this.canvas.height);
+			this.context.fillRect(0,0,this.size.w,this.size.h);
 		}
 	}
 	

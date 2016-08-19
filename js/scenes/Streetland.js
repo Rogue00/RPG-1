@@ -33,7 +33,7 @@ function Streetland(width,height) {
 		new Solid(100,100,700,100,solidConfig),
 		new Solid(100,100,200,400,solidConfig),
 		new Solid(100,100,700,400,solidConfig),
-		new Collectable(width/2,height/2,collectableConfig),
+		new Collectable(width/2,height/2,24,24,collectableConfig),
 		guardian
 	];
 	
@@ -46,7 +46,7 @@ function Streetland(width,height) {
 	
 	this.userDraw = function() {
 		this.context.fillStyle = this.context.createPattern(streetTexture,"repeat");
-		this.context.fillRect(0,0,this.canvas.width,this.canvas.height);
+		this.context.fillRect(0,0,this.size.w,this.size.h);
 	}
 	
 }

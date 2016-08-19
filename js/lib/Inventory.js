@@ -79,8 +79,8 @@ var Inventory = new function () {
 				this.context.strokeStyle = "#fff";
 			}
 			
-			this.context.strokeRect(0,i*(40+6),this.canvas.width,40);
-			this.context.fillRect(1,i*(40+6)+1,this.canvas.width-2,40-1);
+			this.context.strokeRect(0,i*(40+6),this.size.w,40);
+			this.context.fillRect(1,i*(40+6)+1,this.size.w-2,40-1);
 			
 		}
 		

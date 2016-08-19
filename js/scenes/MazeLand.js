@@ -28,7 +28,7 @@ function MazeLand(width,height) {
 	
 	this.userDraw = function() {
 		this.context.fillStyle = this.context.createPattern(streetTexture,"repeat");
-		this.context.fillRect(0,0,this.canvas.width,this.canvas.height);
+		this.context.fillRect(0,0,this.size.w,this.size.h);
 	}
 	
 }

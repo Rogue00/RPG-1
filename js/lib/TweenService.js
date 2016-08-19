@@ -36,6 +36,8 @@ var TweenService = new function () {
 					
 					this.config.object.needsRedraw = true;
 					
+					this.config.object.context.clearRect(0,0,this.config.object.size.w,this.config.object.size.h);
+					
 					if(percentage==1) {
 						if(this.currentStep+1<this.config.steps.length) {
 							this.currentStep++;

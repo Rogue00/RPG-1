@@ -48,14 +48,14 @@ function Fire(x,y) {
 	this.userDraw = function() {
 		this.context.drawImage(
 						fireTexture,
-						this.spritePosition.x*this.canvas.width,
-						this.spritePosition.y*this.canvas.height,
-						this.canvas.width,
-						this.canvas.height,
+						this.spritePosition.x*this.size.w,
+						this.spritePosition.y*this.size.h,
+						this.size.w,
+						this.size.h,
 						0,
 						0,
-						this.canvas.width,
-						this.canvas.height
+						this.size.w,
+						this.size.h
 					);
 	}
 	

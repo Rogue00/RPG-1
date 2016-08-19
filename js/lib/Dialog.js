@@ -33,7 +33,7 @@ var Dialog = new function() {
 		if(messages.length) {
 			if(messages[0].bgColor!='transparent') {
 				this.context.fillStyle = messages[0].bgColor;
-				this.context.fillRect(0,0,this.canvas.width,this.canvas.height);
+				this.context.fillRect(0,0,this.size.w,this.size.h);
 			}
 			this.context.fillStyle = messages[0].color;
 			this.context.textAlign = 'center';
@@ -45,16 +45,16 @@ var Dialog = new function() {
 				tmpFontSize = 16;
 				this.context.font = tmpFontSize+'pt Verdana';
 				for(var i=0;i<messages[0].message.length;i++) {
-					this.context.fillText(messages[0].message[i],this.canvas.width/2,(57-(17*messages[0].message.length))+(30*i));
+					this.context.fillText(messages[0].message[i],this.size.w/2,(57-(17*messages[0].message.length))+(30*i));
 				}				
 			} else {	
 				tmpFontSize = 30;
 				this.context.font = tmpFontSize+'pt Verdana';
-				while(this.context.measureText(messages[0].message).width>this.canvas.width) {
+				while(this.context.measureText(messages[0].message).width>this.size.w) {
 					tmpFontSize--;
 					this.context.font = tmpFontSize+'pt Verdana';
 				}
-				this.context.fillText(messages[0].message,this.canvas.width/2,this.canvas.height/2);
+				this.context.fillText(messages[0].message,this.size.w/2,this.size.h/2);
 
 			}
 			

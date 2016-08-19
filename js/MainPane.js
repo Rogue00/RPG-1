@@ -46,8 +46,8 @@ function MainPane(width, height, contentPlates) {
               obj: collider,
               size: collider.size,
               position: {
-                x: collider.position.x + ((cX-1)*this.canvas.width/3) + (b*this.canvas.width/3),
-                y: collider.position.y + ((cY-1)*this.canvas.height/3) + (i*this.canvas.height/3)
+                x: collider.position.x + ((cX-1)*this.size.w/3) + (b*this.size.w/3),
+                y: collider.position.y + ((cY-1)*this.size.h/3) + (i*this.size.h/3)
               }
             });
           }
@@ -61,8 +61,8 @@ function MainPane(width, height, contentPlates) {
     cY = y;
     cX = x;
     this.translation = {
-      x: this.canvas.width/3,
-      y: this.canvas.height/3
+      x: this.size.w/3,
+      y: this.size.h/3
     }; 
     this.rearrange();
   }
@@ -96,8 +96,8 @@ function MainPane(width, height, contentPlates) {
     }
 
     this.translation = {
-      x: x-(cX-1)*this.canvas.width/3-(this.canvas.width/3/2),
-      y: y-(cY-1)*this.canvas.height/3-(this.canvas.height/3/2)
+      x: x-(cX-1)*this.size.w/3-(this.size.w/3/2),
+      y: y-(cY-1)*this.size.h/3-(this.size.h/3/2)
     }
     
     if(this.translation.x<0) {
@@ -107,12 +107,12 @@ function MainPane(width, height, contentPlates) {
       this.translation.y = 0;
     }
     
-    if(this.translation.y > this.canvas.height-(this.canvas.height/3)) {
-      this.translation.y = this.size.h-this.canvas.height/3;
+    if(this.translation.y > this.size.h -(this.size.h/3)) {
+      this.translation.y = this.size.h-this.size.h/3;
     }
     
-    if(this.translation.x > this.canvas.width-(this.canvas.width/3)) {
-      this.translation.x = this.size.w-this.canvas.width/3;
+    if(this.translation.x > this.size.w -(this.size.w/3)) {
+      this.translation.x = this.size.w-this.size.w/3;
     } 
        
   }
