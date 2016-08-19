@@ -5,6 +5,8 @@ function Fire(x,y) {
 	Drawable.call(this,x,y,64,64);
 
 	var locked = false;
+	this.hits = true;
+	
 	this.handleHit = function(hitObj) {
 		if(KeyboardService.keysPressed.space) {
 			if(!locked) {
