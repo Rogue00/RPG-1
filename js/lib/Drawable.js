@@ -1,23 +1,35 @@
 function Drawable(x,y,width,height) {
+  //DOM
   this.canvas = document.createElement('canvas');
   this.context = this.canvas.getContext('2d');
-  
   this.canvas.width = width;
   this.canvas.height = height;
   
+  //Properties
   this.needsRedraw = false;
+  
+  this.hits = false;
   
   this.position = {
     x:x,
     y:y 
   }
   
+  this.size = {
+		w: width,
+		h: height
+	}
+  
   this.alpha = 1;
   
   this.tweens = [];
+  this.content = [];
+  this.colliders = [];
   
   this.spritePosition = {x:0,y:0};
   
+  
+  //Methods
   this.getPosition = function() {
 		return this.position;
 	}
@@ -31,14 +43,6 @@ function Drawable(x,y,width,height) {
 		this.position.x +=x;
 		this.position.y +=y;
 	}
-  
-  this.size = {
-		w: width,
-		h: height
-	}
-  
-  this.content = [];
-  this.colliders = [];
   
 	this.loop = function() {
     
@@ -81,7 +85,6 @@ function Drawable(x,y,width,height) {
   this.draw = function() {
     if(!this.needsRedraw) return;
     this.needsRedraw = false;
-    
     this.context.globalAlpha = this.alpha;
     
     if(this.userDraw!=undefined) {
@@ -97,5 +100,7 @@ function Drawable(x,y,width,height) {
 			this.colliders[i].draw();
       this.context.drawImage(this.colliders[i].canvas,this.colliders[i].position.x,this.colliders[i].position.y);	      
 		}
+    
   }
+  
 }

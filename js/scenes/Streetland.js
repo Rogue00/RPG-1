@@ -10,7 +10,7 @@ function Streetland(width,height) {
 	var solidConfig = {type:'brick'};
 	var collectableConfig = {type:'uncookedMeat',collectMsg:'some uncooked meat...'};
 	
-	var guardian = new Solid(32,32,width/2-50,height/2-50,solidConfig);
+	var guardian = new Solid(width/2-50,height/2-50,32,32,solidConfig);
 	
 	this.tweens.push(TweenService.createTween({
 		object: guardian,
@@ -25,14 +25,14 @@ function Streetland(width,height) {
 	}));
 	
 	this.colliders = [
-		new Solid(width/2,32,0,0,solidConfig),
-		new Solid(width/2,32,width/2+32,0,solidConfig),
-		new Solid(32,height/2,0,0,solidConfig),
-		new Solid(32,height/2,0,height/2+32,solidConfig),
-		new Solid(100,100,200,100,solidConfig),
-		new Solid(100,100,700,100,solidConfig),
-		new Solid(100,100,200,400,solidConfig),
-		new Solid(100,100,700,400,solidConfig),
+		new Solid(0,0,width/2,32,solidConfig),
+		new Solid(width/2+32,0,width/2,32,solidConfig),
+		new Solid(0,0,32,height/2,solidConfig),
+		new Solid(0,height/2+32,32,height/2,solidConfig),
+		new Solid(200,100,100,100,solidConfig),
+		new Solid(700,100,100,100,solidConfig),
+		new Solid(200,400,100,100,solidConfig),
+		new Solid(700,400,100,100,solidConfig),
 		new Collectable(width/2,height/2,24,24,collectableConfig),
 		guardian
 	];

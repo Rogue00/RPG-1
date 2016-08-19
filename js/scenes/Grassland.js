@@ -55,7 +55,7 @@ function Grassland(width,height) {
 			}			
 		}
 	}};
-	var waterspoutFountain = new Solid(96,94,width/2-45,height/2,waterspoutFountainConfig);
+	var waterspoutFountain = new Solid(width/2-45,height/2,96,94,waterspoutFountainConfig);
 	
 	var coin = new Collectable(90,90,24,24,collectableConfig);
 	
@@ -84,18 +84,19 @@ function Grassland(width,height) {
 	}));
 	
 	this.colliders = [
-		new Solid(width/2,32,0,0,solidConfig),
-		new Solid(width/2,32,width/2+32,0,solidConfig),
-		new Solid(32,height/2,0,0,solidConfig),
-		new Solid(32,height/2,0,height/2+32,solidConfig),
-		new Solid(52,64,700,200,fountainConfig),
-		new Solid(9,16,700,400,redFlowerConfig),
-		new Solid(9,16,710,420,redFlowerConfig),
-		new Solid(9,16,690,410,redFlowerConfig),
-		new Solid(62,36,690,350,benchConfig),
-		new Solid(56,44,690,450,stoneConfig),
-		new Solid(128,153,720,300,treeConfig),
-		new Solid(53,52,720,50,signConfig),
+		new Solid(0,0,width/2,32,solidConfig),
+		new Solid(width/2+32,0,width/2,32,solidConfig),
+		new Solid(0,0,32,height/2,solidConfig),
+		new Solid(0,height/2+32,32,height/2,solidConfig),
+		
+		new Solid(700,200,52,64,fountainConfig),
+		new Solid(700,400,9,16,redFlowerConfig),
+		new Solid(710,420,9,16,redFlowerConfig),
+		new Solid(690,410,9,16,redFlowerConfig),
+		new Solid(690,350,62,36,benchConfig),
+		new Solid(690,450,56,44,stoneConfig),
+		new Solid(720,300,128,153,treeConfig),
+		new Solid(720,50,53,52,signConfig),
 		coin,
 		new Fire(height/2-32,height/2-32),
 		waterspoutFountain,

@@ -24,6 +24,7 @@ var Dialog = new function() {
 		}
 		messages.push({message:message,displayTime:displayTime,color:color,bgColor:bgColor});
 		this.needsRedraw = true;
+		
 		this.draw();
 
 	}

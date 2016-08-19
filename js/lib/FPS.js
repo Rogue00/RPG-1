@@ -10,7 +10,6 @@ var FPS = {
 			this.startTime = new Date().getTime();
 			this.frameNumber = 0;
 		}
-		//if(result>60) result = 60;
 		return result;
 	}	
 };

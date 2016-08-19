@@ -6,7 +6,7 @@ var TweenService = new function () {
 				firstTick: new Date().getTime(),
 				currentStep:-1,
 				stepStart:-1,
-				stepStartPosition: {x:-1,y:-1},
+				stepStartPosition: {},
 				tick: function() {
 					if(this.currentStep<0) {
 						this.currentStep++;

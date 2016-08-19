@@ -6,16 +6,16 @@ function MazeLand(width,height) {
 	
 	var solidConfig = {type:'brick'};
 	this.colliders = [
-		new Solid(width/2,32,0,0,solidConfig),
-		new Solid(width/2,32,width/2+32,0,solidConfig),
-		new Solid(32,height/2,0,0,solidConfig),
-		new Solid(32,height/2,0,height/2+32,solidConfig),
+		new Solid(0,0,width/2,32,solidConfig),
+		new Solid(width/2+32,0,width/2,32,solidConfig),
+		new Solid(0,0,32,height/2,solidConfig),
+		new Solid(0,height/2+32,32,height/2,solidConfig),
 	];
 	
 	for(var i=2;i<30;i++) {
 		for(var b=3;b<17;b++) {
 			if(i%3==0 && b%2!=0) {
-				this.colliders.push(new Solid(32,32,i*32,b*32,solidConfig));
+				this.colliders.push(new Solid(i*32,b*32,32,32,solidConfig));
 			}
 		}	
 	}

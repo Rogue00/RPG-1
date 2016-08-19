@@ -1,7 +1,7 @@
 Solid.prototype = Object.create(Drawable.prototype);
 Solid.prototype.constructor = Drawable;
 	
-function Solid(width,height,x,y,solidConfig) {
+function Solid(x,y,width,height,solidConfig) {
 	Drawable.call(this,x,y,width,height);
 
 	this.hits = solidConfig.hits==undefined ? true : solidConfig.hits;
@@ -19,9 +19,7 @@ function Solid(width,height,x,y,solidConfig) {
 		this.handleHit = solidConfig.handleHit;	
 	}
 	
-	
 	this.userDraw = function() {
-		
 		this.context.save();
         this.context.translate(this.spritePosition.x*this.size.w,this.spritePosition.y*this.size.h);
 		this.context.fillStyle = this.context.createPattern(texture,"repeat");
