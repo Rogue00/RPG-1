@@ -11,7 +11,6 @@ function Collectable(x,y,width,height,itemConfig) {
 		this.handleHit = function(hitObj) {
 			if(!collected) {
 				collected = true;
-				this.context.clearRect(0,0,this.size.w,this.size.h);
 				this.needsRedraw = true;
 				Inventory.addItem(itemConfig.type,1);
 				Dialog.addMessage(itemConfig.collectMsg);

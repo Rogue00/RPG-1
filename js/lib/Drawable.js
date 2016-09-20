@@ -44,8 +44,7 @@ function Drawable(x,y,width,height) {
 		this.position.y +=y;
 	}
   
-	this.loop = function() {
-    
+  this.tweenLoop = function() {
     var deleteableTweens = [];
     for(var i=0;i<this.tweens.length;i++) {
       var tween = this.tweens[i];
@@ -53,12 +52,16 @@ function Drawable(x,y,width,height) {
         deleteableTweens.push(tween);
       }
       tween.tick();
-      this.needsRedraw = true;
     }
     for(var i=0;i<deleteableTweens.length;i++) {
       this.tweens.splice(this.tweens.indexOf(deleteableTweens[i]),1);
     }
-    
+  }
+  
+  
+  
+	this.loop = function() {
+    this.tweenLoop();
     
     for(var i=0;i<this.colliders.length;i++) {
       var collider = this.colliders[i];
@@ -80,10 +83,19 @@ function Drawable(x,y,width,height) {
     }
     
 		return this.needsRedraw;
+    
 	}
+  
+  this.needsRepaint = false;
+  this.rePaint = function() {
+    
+  }
   
   this.draw = function() {
     if(!this.needsRedraw) return;
+    AppConfig.dpl++;
+    this.context.clearRect(0,0,this.size.w,this.size.h);
+    
     this.needsRedraw = false;
     this.context.globalAlpha = this.alpha;
     

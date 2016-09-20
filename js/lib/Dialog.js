@@ -31,7 +31,6 @@ var Dialog = new function() {
 	
 	
 	this.userDraw = function() {
-		this.context.clearRect(0,0,this.size.w,this.size.h);
 		if(messages.length) {
 			if(messages[0].bgColor!='transparent') {
 				this.context.fillStyle = messages[0].bgColor;

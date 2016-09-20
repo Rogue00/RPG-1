@@ -84,9 +84,9 @@ function Grassland(width,height) {
 	}));
 	
 	this.colliders = [
-		new Solid(0,0,width/2,32,solidConfig),
+		new Solid(0,0,width/2-32,32,solidConfig),
 		new Solid(width/2+32,0,width/2,32,solidConfig),
-		new Solid(0,0,32,height/2,solidConfig),
+		new Solid(0,0,32,height/2-32,solidConfig),
 		new Solid(0,height/2+32,32,height/2,solidConfig),
 		
 		new Solid(700,200,52,64,fountainConfig),

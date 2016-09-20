@@ -73,7 +73,6 @@ function Hero(x,y) {
 	}.bind(this));
 	
 	this.userDraw = function() {
-		this.context.clearRect(0,0,this.size.w,this.size.h);
 		this.context.drawImage(
 						heroSprite,
 						this.spritePosition.x*this.size.w,

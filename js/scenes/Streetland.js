@@ -25,10 +25,11 @@ function Streetland(width,height) {
 	}));
 	
 	this.colliders = [
-		new Solid(0,0,width/2,32,solidConfig),
+		new Solid(0,0,width/2-32,32,solidConfig),
 		new Solid(width/2+32,0,width/2,32,solidConfig),
-		new Solid(0,0,32,height/2,solidConfig),
+		new Solid(0,0,32,height/2-32,solidConfig),
 		new Solid(0,height/2+32,32,height/2,solidConfig),
+		
 		new Solid(200,100,100,100,solidConfig),
 		new Solid(700,100,100,100,solidConfig),
 		new Solid(200,400,100,100,solidConfig),

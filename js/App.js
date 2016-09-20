@@ -26,6 +26,7 @@ function App(initCanvas) {
     
   var loop = function() {
     window.requestAnimationFrame(loop);
+    AppConfig.dpl=0;
     
     var movement = {
       x:0,
@@ -110,6 +111,8 @@ function App(initCanvas) {
 		context.font = '18px verdana';
 		context.textBaseline = 'top';
 		context.fillText('FPS: '+ FPS.getFPS(), 0,0);
+    
+    context.fillText('DPL: '+ AppConfig.dpl, 100,0);
   }
   
   window.setTimeout(function() {

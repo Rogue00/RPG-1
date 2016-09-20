@@ -16,7 +16,7 @@ var TweenService = new function () {
 					var now = new Date().getTime();
 					
 					var currentStep = this.config.steps[this.currentStep];
-					var percentage = (now - this.stepStart) / currentStep.d ; 
+					var percentage = ((now - this.stepStart) / currentStep.d).toFixed(2); 
 					
 					percentage = percentage > 1 ? 1 : percentage;
 					
@@ -36,8 +36,6 @@ var TweenService = new function () {
 					
 					this.config.object.needsRedraw = true;
 					
-					this.config.object.context.clearRect(0,0,this.config.object.size.w,this.config.object.size.h);
-					
 					if(percentage==1) {
 						if(this.currentStep+1<this.config.steps.length) {
 							this.currentStep++;
@@ -48,9 +46,8 @@ var TweenService = new function () {
 								this.deleteable = true; 
 							}
 						}
-							this.stepStart = new Date().getTime();
-							this.stepStartPosition = {x: this.config.object.position.x , y: this.config.object.position.y, a: this.config.object.alpha };
-		
+						this.stepStart = new Date().getTime();
+						this.stepStartPosition = {x: this.config.object.position.x , y: this.config.object.position.y, a: this.config.object.alpha };
 					}
 				}
 		};

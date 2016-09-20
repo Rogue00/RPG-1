@@ -6,10 +6,11 @@ function MazeLand(width,height) {
 	
 	var solidConfig = {type:'brick'};
 	this.colliders = [
-		new Solid(0,0,width/2,32,solidConfig),
+		new Solid(0,0,width/2-32,32,solidConfig),
 		new Solid(width/2+32,0,width/2,32,solidConfig),
-		new Solid(0,0,32,height/2,solidConfig),
+		new Solid(0,0,32,height/2-32,solidConfig),
 		new Solid(0,height/2+32,32,height/2,solidConfig),
+		
 	];
 	
 	for(var i=2;i<30;i++) {

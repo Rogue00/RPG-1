@@ -121,11 +121,14 @@ function MainPane(width, height, contentPlates) {
     for(var i=0;i<3;i++) {
       for(var b=0;b<3;b++) {
         this.content[(i*3)+b].content = [contentPlates[cX+b-1][cY+i-1]];
+        
         this.content[(i*3)+b].needsRedraw = true;
+        this.content[(i*3)+b].draw();
       } 
     }
     this.generateColliderSet();
     this.needsRedraw = true;
+    this.draw();
   }
 
 }
